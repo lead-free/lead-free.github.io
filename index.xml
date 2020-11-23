@@ -1,0 +1,19 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Stanislav Sotnikov</title>
+        <link>stansotn.github.io/</link>
+        <description>This is My New Hugo Site</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</managingEditor>
+            <webMaster>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</webMaster><lastBuildDate>Sun, 22 Nov 2020 17:00:49 -0500</lastBuildDate>
+            <atom:link href="stansotn.github.io/index.xml" rel="self" type="application/rss+xml" />
+        <item>
+    <title>Embedded Environment</title>
+    <link>stansotn.github.io/embedded_environment/</link>
+    <pubDate>Sun, 22 Nov 2020 17:00:49 -0500</pubDate>
+    <author>Author</author>
+    <guid>stansotn.github.io/embedded_environment/</guid>
+    <description><![CDATA[Have you ever wondered what is going on behind the mystical IDE of your embedded choice?
+Many programming journeys start with learning user interface of a particular Development Environment &ndash; a path I took myself. While IDEs can arguably simplify things, various knobs get defaulted to some magic values. Unless you know upfront, it can be tricky to lookup what these radio buttons actually do.
+There is a plethora of bare-metal oriented Integrated Development Environments (IDEs) in the wild sharing a similar set of features.]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Embedded Environment - Stanislav Sotnikov</title><meta name="Description" content="This is My New Hugo Site"><meta property="og:title" content="Embedded Environment" />
+<meta property="og:description" content="Have you ever wondered what is going on behind the mystical IDE of your embedded choice?
+Many programming journeys start with learning user interface of a particular Development Environment &ndash; a path I took myself. While IDEs can arguably simplify things, various knobs get defaulted to some magic values. Unless you know upfront, it can be tricky to lookup what these radio buttons actually do.
+There is a plethora of bare-metal oriented Integrated Development Environments (IDEs) in the wild sharing a similar set of features." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="stansotn.github.io/embedded_environment/" />
+<meta property="og:image" content="/logo.png"/>
+<meta property="article:published_time" content="2020-11-22T17:00:49-05:00" />
+<meta property="article:modified_time" content="2020-11-22T17:00:49-05:00" />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="/logo.png"/>
+
+<meta name="twitter:title" content="Embedded Environment"/>
+<meta name="twitter:description" content="Have you ever wondered what is going on behind the mystical IDE of your embedded choice?
+Many programming journeys start with learning user interface of a particular Development Environment &ndash; a path I took myself. While IDEs can arguably simplify things, various knobs get defaulted to some magic values. Unless you know upfront, it can be tricky to lookup what these radio buttons actually do.
+There is a plethora of bare-metal oriented Integrated Development Environments (IDEs) in the wild sharing a similar set of features."/>
+<meta name="application-name" content="Stanislav Sotnikov">
+<meta name="apple-mobile-web-app-title" content="Stanislav Sotnikov"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="stansotn.github.io/embedded_environment/" /><link rel="stylesheet" href="/stansotn.github.io/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/stansotn.github.io/css/style.min.css"><link rel="stylesheet" href="/stansotn.github.io/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/stansotn.github.io/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Embedded Environment",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "stansotn.github.io\/embedded_environment\/"
+        },"genre": "posts","wordcount":  2059 ,
+        "url": "stansotn.github.io\/embedded_environment\/","datePublished": "2020-11-22T17:00:49-05:00","dateModified": "2020-11-22T17:00:49-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Stanislav Sotnikov"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="stansotn.github.io/" title="Stanislav Sotnikov">Stanislav Sotnikov</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/stansotn.github.io/posts/"> Posts </a><a class="menu-item" href="/stansotn.github.io/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="stansotn.github.io/" title="Stanislav Sotnikov">Stanislav Sotnikov</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/stansotn.github.io/posts/" title="">Posts</a><a class="menu-item" href="/stansotn.github.io/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title">Embedded Environment</h1><div class="post-meta">
+            <div class="post-meta-line"></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-22">2020-11-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;2059 words&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-requirements">1. Requirements</a>
+      <ul>
+        <li><a href="#11-gcc-arm-none-eabi">1.1 gcc-arm-none-eabi</a>
+          <ul>
+            <li><a href="#ubuntu">Ubuntu</a></li>
+            <li><a href="#macos">MacOS</a></li>
+          </ul>
+        </li>
+        <li><a href="#12-git">1.2 git</a></li>
+        <li><a href="#13-cmake">1.3 CMake</a>
+          <ul>
+            <li><a href="#ubuntu-1">Ubuntu</a></li>
+            <li><a href="#macos-1">MacOS</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#2-project-structure">2. Project Structure</a></li>
+    <li><a href="#3-libraries">3. Libraries</a>
+      <ul>
+        <li><a href="#31-cmsis">3.1 CMSIS</a></li>
+        <li><a href="#32-hal">3.2 HAL</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-sources">4. Sources</a></li>
+    <li><a href="#5-cmake">5. CMake</a></li>
+    <li><a href="#6-build">6. Build</a></li>
+    <li><a href="#afterword">Afterword</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Have you ever wondered what is going on behind the mystical IDE of your embedded choice?</p>
+<p>Many programming journeys start with learning user interface of a particular Development Environment &ndash; a path I took myself. While IDEs can arguably simplify things, various knobs get defaulted to some magic values. Unless you know upfront, it can be tricky to lookup what these radio buttons actually do.</p>
+<p>There is a plethora of bare-metal oriented <a href="https://en.wikipedia.org/wiki/Integrated_development_environment" target="_blank" rel="noopener noreffer"><em>Integrated Development Environments</em></a> (IDEs) in the wild sharing a similar set of features. These include Keil, Atollic, IAR, mbed, a multitude of eclipse flavors, and well-known Arduino.</p>
+<p>This post/tutorial shows a method of developing embedded code without having a particular IDE in mind, a bare approach for bare metal development, underlining why IDE agnostic is elegant, efficient and simple.</p>
+<h2 id="1-requirements">1. Requirements</h2>
+<p>This post will focus on embedded ARM toolchain, particularly on the guidelines for the famous <a href="https://hackaday.com/2017/03/30/the-2-32-bit-arduino-with-debugging/" target="_blank" rel="noopener noreffer"><em>Blue Pill</em></a> (aka <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32f103c8.html" target="_blank" rel="noopener noreffer"><em>STM32F103C8T6</em></a>). The process is almost identical for other stm32 microcontrollers and simillar for embeded arm devices from other vendors (Atmel, NXP, etc).</p>
+<p>Further instructions are written for Unix platforms, that is Linux and MacOS.</p>
+<p>Our dependencies are</p>
+<ul>
+<li><a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm" target="_blank" rel="noopener noreffer"><em>gcc-arm-none-eabi</em></a> &ndash; GNU ARM Embedded Toolchain.</li>
+<li><a href="https://git-scm.com" target="_blank" rel="noopener noreffer"><em>git</em></a> &ndash; Version Control.</li>
+<li><a href="https://cmake.org" target="_blank" rel="noopener noreffer"><em>CMake</em></a> &ndash; Build System.</li>
+</ul>
+<h3 id="11-gcc-arm-none-eabi">1.1 gcc-arm-none-eabi</h3>
+<p>Compiler, linker, debugger, objdump, you name it.</p>
+<h4 id="ubuntu">Ubuntu</h4>
+<p>Install using your favorite package manager or download from <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm" target="_blank" rel="noopener noreffer">here</a>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install gcc-arm-none-eabi
+</code></pre></div><h4 id="macos">MacOS</h4>
+<p>At the moment, if you do <code>brew install gcc-arm-embedded</code> besides installing the toolchain brew will install the entire Keil as a bonus.. ctrl+c and install from the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm" target="_blank" rel="noopener noreffer"><em>arm website</em></a>.</p>
+<h3 id="12-git">1.2 git</h3>
+<p>We will use git as a version control system and to pull some libraries into our project. Odds are you have git installed already, if unsure, try <code>git --version</code>. In case you don&rsquo;t have git, follow installation instructions <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank" rel="noopener noreffer">here</a>.</p>
+<h3 id="13-cmake">1.3 CMake</h3>
+<p>CMake will serve us as a build system, it will generate tedious <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer"><em>make files</em></a> telling the compiler where to look for the source code and passing flags. CMake is the most widely spread build system, many IDEs rely on it. In fact, you don&rsquo;t have to be familiar with CMake to follow this tutorial.</p>
+<p>Download CMake from <a href="https://cmake.org/download/" target="_blank" rel="noopener noreffer"><em>here</em></a> or install with a package manager.</p>
+<h4 id="ubuntu-1">Ubuntu</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install cmake
+</code></pre></div><h4 id="macos-1">MacOS</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">brew install cmake
+</code></pre></div><h2 id="2-project-structure">2. Project Structure</h2>
+<p>It all begins with creating a project directory, which will further be referenced as <em>project root directory</em>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir blue-pill
+<span class="nb">cd</span> blue-pill
+</code></pre></div><p>Similarly to any software project, ours will have some code we write ourselves and some borrowed library code that will not change, except for when the libraries get updated. cmake directory will contain our build system.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir sources
+mkdir libraries
+mkdir cmake
+</code></pre></div><p>This is different from typical unix development, where your 3d party libraries are likely to live in <code>/usr/local</code>. Since we will be writing code for a different architecture we do not &ldquo;install&rdquo; libraries/headers into our system.</p>
+<h2 id="3-libraries">3. Libraries</h2>
+<h3 id="31-cmsis">3.1 CMSIS</h3>
+<p>First, we are going to add <a href="https://arm-software.github.io/CMSIS_5/Core/html/index.html" target="_blank" rel="noopener noreffer"><em>Cortex Microcontroller Software Interface</em></a> or CMSIS. There are traits all Cortex-M microcontrollers share. CMSIS serves as a standard, developed by ARM itself, to interface things like <em>Nested Vector Interrupt Table</em> (NVIC), Exception Handlers (Reset, Hard Fault, SysTick, Supervisor Call), Memory protection, Floating Point Unit, etc.. <a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic" target="_blank" rel="noopener noreffer"><em>Here</em></a> is a good article about exceptions and NVIC.</p>
+<p><a href="https://github.com/ARM-software/CMSIS_5" target="_blank" rel="noopener noreffer"><em>Here</em></a> is CMSIS github repository. In fact, all we will need in terms of the library support is available on git, therefore we can take use <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="noopener noreffer"><em>git submodule</em></a> to link these repositories to our project.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From the project root.</span>
+git init
+git submodule add https://github.com/ARM-software/CMSIS_5 libraries/CMSIS_5
+<span class="nb">cd</span> libraries/CMSIS_5
+git checkout master <span class="c1"># The default branch is develop.</span>
+<span class="nb">cd</span> ../.. <span class="c1"># Back to the project root.</span>
+</code></pre></div><p>Though cloning the entire CMSIS repo might be bulky, we only need a few headers. Imagine somebody else wants to build your project, fishing for headers can be extremely unpleasant. Another solution &ndash; some IDEs copy everything (cmsis and hal) into the project directory by default, which makes version control ugly, and does not allow to easily update libraries.</p>
+<p>We will also need the device specific CMSIS. This defines registers of the available peripherals.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From the project root.</span>
+git submodule add https://github.com/STMicroelectronics/cmsis_device_f1.git libraries/cmsis_device_f1
+</code></pre></div><h3 id="32-hal">3.2 HAL</h3>
+<p>The next step is Hardware Abstraction Layer of the microcontroller peripherals. The blue pill has STM32F103C8T6 microcontroller, which brings us to ST&rsquo;s <a href="https://github.com/STMicroelectronics" target="_blank" rel="noopener noreffer"><em>github page</em></a> where we find <a href="stm32f1xx_hal_driver" rel=""><em>stm32f1xx_hal_driver</em></a>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">git submodule add https://github.com/STMicroelectronics/stm32f1xx_hal_driver.git libraries/stm32f1xx_hal_driver
+<span class="nb">cd</span> libraries/stm32f1xx_hal_driver
+</code></pre></div><p>Let&rsquo;s be adventurous and screw a virtual com port to our project, because why not? The pill has usb support.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">git submodule add https://github.com/STMicroelectronics/stm32_mw_usb_device.git libraries/stm32_mw_usb_device
+<span class="nb">cd</span> libraries/stm32_mw_usb_device
+</code></pre></div><p><a href="https://en.wikipedia.org/wiki/Virtual_COM_port" target="_blank" rel="noopener noreffer"><em>Virtual Com Port</em></a> can be accessed from your computer the same way a generic serial port would, eliminating the need of usb to TTL converter, that is when you plug in your blue pill into a unix computer you can talk through <code>/dev/tty.something</code>.</p>
+<h2 id="4-sources">4. Sources</h2>
+<p>Usually microcontroller vendors provide some template code to start off. Here I will use <a href="https://www.st.com/en/development-tools/stm32cubemx.html" target="_blank" rel="noopener noreffer"><em>STM32CubeMX</em></a> code generation tool. If you find using stm cube every time to generate initialization code painful, you need java to run it after all, make a template for a specific board and reuse it. For instance, the repository of this tutorial serves me as a template for the blue pill. Here is a checklist for stm cube.</p>
+<ol>
+<li>Access mcu selector -&gt; look for stm32f103c8.</li>
+<li>Pinout &amp; Configuration:
+<ul>
+<li>System Core -&gt; RCC -&gt; HSE = Crystal Resonator</li>
+<li>System Core -&gt; SYS -&gt; Debug = Serial Wire # I am using swd, you could use jtag.</li>
+<li>Connectivity -&gt; USB -&gt; Check Device</li>
+<li>Middleware -&gt; USB_DEVICE -&gt; Class = Communication device class (virtual com port)</li>
+<li>Optionally you could set PC13 to GPIO_Output to toggle the on-board led by clicking on the PC13 pin.</li>
+</ul>
+</li>
+<li>Clock Configuration. To me this is the most appreciated part of stm cube, you get to see and play with clock settings without analyzing tens of data sheet pages. Blue pill has 8 MHz external oscillator, make sure you check that
+<ul>
+<li>Input frequency = 8MHz</li>
+<li>PLL source mux is set to HSE</li>
+<li>System clock mux is PLL clock
+Play with different knobs, if you do something wrong cube will let you know. For instance usb frequency must always be set to 48MHz, if it&rsquo;s different cube will raise the red flag. Though the maximum system frequency you can get is 72MHz, you can later modify it in the code (by accident), there is nothing that will stop you. Be warned, overclocking might be deadly.</li>
+</ul>
+</li>
+<li>Project Manager.
+<ul>
+<li>Project -&gt; Toolchain -&gt; SW4STM32</li>
+<li>Code Generator -&gt; Check add necessary files as reference (this will prevent stm cube from copying all hal libraries into the project directory).</li>
+<li>Project -&gt; Project Name and Location: <strong>do not</strong> set our project root directory as the stm cube project location. When you open stm cube again in future, it can rewrite all the generated files, reorganizing and even deleting your changes. We should generate stm cube code to some temporary folder, then transfer the files manually. Often you would want to go back to stm cube and tweak the configuration.</li>
+</ul>
+</li>
+<li>Generate Code.</li>
+</ol>
+<p>A side note on stm cube. The &ldquo;firmware packages&rdquo; that stm cube downloads to generate code contain lots of examples of peripherals initialization and usage. You can find these &ldquo;firmware packages&rdquo; at <code>~/STM32Cube/Repository/</code> or at <a href="https://github.com/STMicroelectronics" target="_blank" rel="noopener noreffer"><em>ST&rsquo;s github</em></a>. <a href="https://github.com/STMicroelectronics/STM32CubeF1" target="_blank" rel="noopener noreffer"><em>Here</em></a> is one for STM32F1xx family.</p>
+<p>Navigate to the folder where stm cube generated initialization code and copy <code>Inc</code> and <code>Src</code> folders to our <code>sources</code> directory.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># Beware of your paths.</span>
+cp -r Inc ~/projects/blue-pill/sources/inc
+cp -r Src ~/projects/blue-pill/sources/src
+<span class="c1"># ps: I prefer lower case inc and src</span>
+</code></pre></div><p>You might ask what about <code>startup/</code>? We already have a set of standard startup scripts in the <code>libraries/stm32f1xx_hal_driver</code>, which we will link later.</p>
+<h2 id="5-cmake">5. CMake</h2>
+<p>At this point we have summoned all sources in one place and are up to building a binary. Though we are building a hello world there is already a lot going on. The moment you supply power, processor exits reset state by setting the program counter to the predefined reset handler address &ndash; and here your code begins, or not quite yours, for this tutorial we will use startup code provided by st, but you are in full control.</p>
+<p>Back to cmake. Even though, cmake is much more human readable than make, we still have to deal with lots of tedious flags, which vary based on the microcontroller family. For instance, once I used to hardcode compiler flags into a line looking similar to this.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># Not mentioning FPU flags..
+</span><span class="c"></span><span class="nb">set</span><span class="p">(</span><span class="s">COMMON_FLAGS</span> <span class="s2">&#34;-mcpu=cortex-m3 ${FPU_FLAGS} -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -g -fno-common -fmessage-length=0 -specs=nosys.specs -specs=nano.specs -Os&#34;</span><span class="p">)</span><span class="err">
+</span></code></pre></div><p>Let&rsquo;s say one day you would like to switch to another microcontroller, now you have to update your build configuration, which as you see can be a bit tedious. Here I would like to introduce &ldquo;yet another collection of cmake scripts&rdquo; or <a href="https://github.com/nicocvn/yaccs" target="_blank" rel="noopener noreffer"><em>yaccs</em></a>, as inferred from its name yaccs contains some common build configurations and it supports embedded arm.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From project root.</span>
+git submodule add https://github.com/nicocvn/yaccs.git cmake/yaccs
+</code></pre></div><p>Create a <code>CMakeLists.txt</code> in the project root with the following content. Credit goes to <a href="https://github.com/nicocvn/yaccs/blob/master/docs/Example.md" target="_blank" rel="noopener noreffer"><em>yaccs readme example</em></a>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: CMakeLists.txt
+</span><span class="c"></span><span class="err">
+</span><span class="err"></span><span class="c"># This is required with modern version of CMake.
+</span><span class="c"></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.10</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># Include yaccs main CMake file.
+</span><span class="c"># This will automatically look and load the user-config file.
+</span><span class="c"># This has to be done before calling the project() command!
+</span><span class="c"></span><span class="nb">include</span><span class="p">(</span><span class="s">cmake/yaccs/yaccs.cmake</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># Define the project.
+</span><span class="c"></span><span class="nb">project</span><span class="p">(</span><span class="s">blue-pill</span> <span class="s">ASM</span> <span class="s">C</span> <span class="s">CXX</span><span class="p">)</span><span class="err">
+</span><span class="err"></span><span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># HAL libraries require to define terget microcontroller.
+</span><span class="c"># See stm32f1xx.h for more details.
+</span><span class="c"></span><span class="nb">add_definitions</span><span class="p">(</span><span class="s">-DSTM32F103xB</span> <span class="s">-DUSE_HAL_DRIVER</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># This is optional but useful to get a sense of what is happening.
+</span><span class="c"># This command will print various information about the build configuration.
+</span><span class="c"></span><span class="nb">yaccs_system_info</span><span class="p">()</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># This is also optional but it helps by neatly organizing the build tree.
+</span><span class="c"></span><span class="nb">yaccs_init_build_tree</span><span class="p">()</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># Add stuff from the sources directory.
+</span><span class="c"></span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">sources/</span><span class="p">)</span><span class="err">
+</span><span class="err"></span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">libraries/</span><span class="p">)</span><span class="err">
+</span></code></pre></div><p>Create <code>yaccs-user-config.cmake</code> in the project root, this will tell yaccs compiler location and which configuration to use.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: yaccs-user-config.cmake
+</span><span class="c"></span><span class="err">
+</span><span class="err"></span><span class="c"># If the compiler is not in the PATH we need to tell yaccs where to find it.
+</span><span class="c"></span><span class="nb">set</span><span class="p">(</span><span class="s">yaccs_compiler_paths</span> <span class="s">/Applications/ARM/bin/</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># Load the configuration.
+</span><span class="c"></span><span class="nb">include</span><span class="p">(</span><span class="s">cmake/yaccs/cortex-m_gcc-arm_m3_cxx14.cmake</span><span class="p">)</span><span class="err">
+</span></code></pre></div><p>Tell cmake which sources to compile. With <code>add_subdirectory</code> statements, cmake looks for <code>CMakeLists.txt</code> in the specified directory, therefore we need to create one for <code>sources</code> and <code>libraries</code>.</p>
+<p>Create <code>sources/CMakeLists.txt</code> containing the following.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: sources/CMakeLists.txt
+</span><span class="c"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> <span class="s">inc/</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># This will add all files in src, use with care
+</span><span class="c"></span><span class="nb">file</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">SOURCES</span> <span class="s">src/*.*</span><span class="p">)</span><span class="err">
+</span><span class="err"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> <span class="o">${</span><span class="nv">SOURCES</span><span class="o">}</span><span class="p">)</span><span class="err">
+</span></code></pre></div><p>Create <code>libraries/CMakeLists.txt</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file libraries/CMakeLists.txt
+</span><span class="c"></span><span class="err">
+</span><span class="err"></span><span class="c"># List header locations. 
+</span><span class="c"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span>
+                            <span class="s">CMSIS_5/CMSIS/Core/Include</span>
+                            <span class="s">cmsis_device_f1/Include</span>
+                            <span class="s">stm32f1xx_hal_driver/Inc</span>
+                            <span class="s">stm32_mw_usb_device/Core/Inc</span>
+                            <span class="s">stm32_mw_usb_device/Class/CDC/Inc</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># Collect startup code. For some reason there is no exact file that matches startup_stm32f103x8.s, very confusing, ST!
+</span><span class="c"># A glimpse at the stm cube&#39;s generated code reveals startup_stm32f103xb.s file.
+</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> 
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmsis_device_f1/Source/Templates/system_stm32f1xx.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmsis_device_f1/Source/Templates/gcc/startup_stm32f103xb.s</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># Collect HAL Driver source files.
+</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> 
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_cortex.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_gpio.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_rcc.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_rcc_ex.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_pcd.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_pcd_ex.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_pwr.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_ll_usb.c</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># Collect USB CDC Driver.
+</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> 
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32_mw_usb_device/Core/Src/usbd_ioreq.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32_mw_usb_device/Core/Src/usbd_ctlreq.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32_mw_usb_device/Core/Src/usbd_core.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32_mw_usb_device/Class/CDC/Src/usbd_cdc.c</span><span class="p">)</span><span class="err">
+</span></code></pre></div><h2 id="6-build">6. Build</h2>
+<p>We are almost there. In case stm fixed <a href="https://github.com/STMicroelectronics/STM32CubeF1/issues/25" target="_blank" rel="noopener noreffer"><em>this</em></a> usb related bug, everything should compile. Make sure in function declarations <a href="https://github.com/lead-free/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L533" target="_blank" rel="noopener noreffer"><em>USBD_LL_Transmit</em></a> and <a href="https://github.com/lead-free/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L553" target="_blank" rel="noopener noreffer"><em>USBD_LL_PrepareReceive</em></a> the last function argument is <code>uint32_t size</code> and not <code>uint16_t size</code>.</p>
+<p>Now everything should compile, though generated <code>.elf</code> file might not be properly aligned with the microcontroller memory. You could convert the <code>.elf</code> file to one or multiple binary blobs and then flash these blobs knowing the corresponding memory offsets. While such method would indeed make the processor execute your code, it would also make the <code>.elf</code> file unusable for debugging. In short, <code>.elf</code> contains symbols relating underlying binary, source code, and memory space. You can explicitly describe memory space to the linker using a <em>linker script</em>.</p>
+<p>Grab a default linker script provided by stm. Append the <code>CMakeLists.txt</code> in the project root with the following lines.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="nb">set</span><span class="p">(</span><span class="s">LINKER_SCRIPT</span> <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/libraries/cmsis_device_f1/Source/Templates/gcc/linker/STM32F101XB_FLASH.ld</span><span class="p">)</span><span class="err">
+</span><span class="err"></span><span class="nb">target_link_options</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> <span class="s2">&#34;-Wl,-gc-sections,--print-memory-usage,-T${LINKER_SCRIPT}&#34;</span><span class="p">)</span><span class="err">
+</span></code></pre></div><p>As a bonus, now linker prints memory usage and makes sure your firmware does not go over the limits.</p>
+<p>Finally comes the time to build the project.</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir build
+<span class="nb">cd</span> build
+cmake ..
+make
+</code></pre></div><p>If you need to extract a binary blob (<code>.bin</code> or <code>.hex</code>), add following the <code>CMakeLists.txt</code> in the project root.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># Extract binary blob
+</span><span class="c"></span><span class="nb">set</span><span class="p">(</span><span class="s">HEX_FILE</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.hex</span><span class="p">)</span><span class="err">
+</span><span class="err"></span><span class="nb">set</span><span class="p">(</span><span class="s">BIN_FILE</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.bin</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="nb">add_custom_command</span><span class="p">(</span><span class="s">TARGET</span> <span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">POST_BUILD</span>
+        <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CMAKE_OBJCOPY</span><span class="o">}</span> <span class="s">-Oihex</span> <span class="o">$&lt;</span><span class="nv">TARGET_FILE:${PROJECT_NAME}.elf</span><span class="o">&gt;</span> <span class="o">${</span><span class="nv">HEX_FILE</span><span class="o">}</span>
+        <span class="s">COMMAND</span> <span class="o">${</span><span class="nv">CMAKE_OBJCOPY</span><span class="o">}</span> <span class="s">-Obinary</span> <span class="o">$&lt;</span><span class="nv">TARGET_FILE:${PROJECT_NAME}.elf</span><span class="o">&gt;</span> <span class="o">${</span><span class="nv">BIN_FILE</span><span class="o">}</span>
+        <span class="s">COMMENT</span> <span class="s2">&#34;Extracting ${HEX_FILE}\nExtracting ${BIN_FILE}&#34;</span><span class="p">)</span><span class="err">
+</span></code></pre></div><h2 id="afterword">Afterword</h2>
+<p>The final blue-pill template created in this tutorial is available <a href="https://github.com/lead-free/blue-pill" target="_blank" rel="noopener noreffer"><em>here</em></a>.</p>
+<p>A sequel on Embedded Debugging is coming soon.</p>
+<blockquote>
+<p><strong>Help Me Improve</strong><br>
+I am learning to write meaningful documentation. I hope you enjoyed this post, please help me back by emailing some feedback!</p>
+<ul>
+<li>Is information here clear, correct and up to date?</li>
+<li>How would you improve this post?</li>
+</ul>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2020-11-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="stansotn.github.io/embedded_environment/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="stansotn.github.io/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="stansotn.github.io/" target="_blank">Stanislav Sotnikov</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/stansotn.github.io/lib/katex/katex.min.css"><link rel="stylesheet" href="/stansotn.github.io/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/stansotn.github.io/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/stansotn.github.io/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/stansotn.github.io/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/stansotn.github.io/lib/katex/katex.min.js"></script><script type="text/javascript" src="/stansotn.github.io/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/stansotn.github.io/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/stansotn.github.io/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/stansotn.github.io/js/theme.min.js"></script></body>
+</html>
