@@ -258,7 +258,7 @@ target_sources(${PROJECT_NAME}.elf PUBLIC
 
 ## 6. Build
 
-We are almost there. In case stm fixed [*this*](https://github.com/STMicroelectronics/STM32CubeF1/issues/25) usb related bug, everything should compile. Make sure in function declarations [*USBD_LL_Transmit*](https://github.com/lead-free/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L533) and [*USBD_LL_PrepareReceive*](https://github.com/lead-free/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L553) the last function argument is `uint32_t size` and not `uint16_t size`.
+We are almost there. In case stm fixed [*this*](https://github.com/STMicroelectronics/STM32CubeF1/issues/25) usb related bug, everything should compile. Make sure in function declarations [*USBD_LL_Transmit*](https://github.com/stansotn/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L533) and [*USBD_LL_PrepareReceive*](https://github.com/stansotn/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L553) the last function argument is `uint32_t size` and not `uint16_t size`.
 
 Now everything should compile, though generated `.elf` file might not be properly aligned with the microcontroller memory. You could convert the `.elf` file to one or multiple binary blobs and then flash these blobs knowing the corresponding memory offsets. While such method would indeed make the processor execute your code, it would also make the `.elf` file unusable for debugging. In short, `.elf` contains symbols relating underlying binary, source code, and memory space. You can explicitly describe memory space to the linker using a *linker script*. 
 
@@ -291,7 +291,7 @@ add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
 
 ## Afterword
 
-The final blue-pill template created in this tutorial is available [*here*](https://github.com/lead-free/blue-pill).
+The final blue-pill template created in this tutorial is available [*here*](https://github.com/stansotn/blue-pill).
 
 A sequel on Embedded Debugging is coming soon.
 
