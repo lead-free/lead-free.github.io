@@ -2,7 +2,7 @@
     <channel>
         <title>Stanislav Sotnikov</title>
         <link>https://stansotn.github.io/</link>
-        <description>This is My New Hugo Site</description>
+        <description>welcome to stan.</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</managingEditor>
             <webMaster>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</webMaster><lastBuildDate>Sun, 22 Nov 2020 17:00:49 -0500</lastBuildDate>
             <atom:link href="https://stansotn.github.io/index.xml" rel="self" type="application/rss+xml" />

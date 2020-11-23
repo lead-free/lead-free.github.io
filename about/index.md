@@ -8,7 +8,7 @@ Aside from building robots, I am interested in algorithms, particularly path fin
 
 When I am not at the lab you can find me [*backpacking*](https://www.flickr.com/photos/sl-vision/) and social dancing (pre pandemic) ballroom, fusion/blues, and contact improv.
 ### Contact
-Feel free to contact me, I am always open to connect, share, and explore with enthusiastic creatures.  
+I am always open to connect, share, and explore with enthusiastic creatures.  
 
 City College of New York  
 Steinman Hall, room 518
