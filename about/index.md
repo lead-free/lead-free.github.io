@@ -2,7 +2,7 @@
 
 ### About Me
 
-Hi. I am a researcher and a graduate student at the City University of New York working with the [*CCNY Robotics Lab*](https://ccny-ros-pkg.github.io). I build robotic embedded systems from pcb layout to path planning for various NSF lab-to-market endeavors ~~that sponsor my further education~~.  
+Hi. I am a researcher and a graduate student at the City University of New York working with the [*CCNY Robotics Lab*](https://ccny-ros-pkg.github.io). I build robotic embedded systems from pcb layout to path planning algorithms for various NSF lab-to-market endeavors ~~that sponsor my further education~~.  
 
 Aside from building robots, I am interested in algorithms, particularly path finding problems. I am currently exploring the field of [*evolutionary computations*](https://en.wikipedia.org/wiki/Evolutionary_computation) and tweaking neural networks (aka [neuroevolution](http://eplex.cs.ucf.edu/hyperNEATpage/HyperNEAT.html)).
 
