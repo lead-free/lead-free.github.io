@@ -24,7 +24,7 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
 <meta name="application-name" content="Stanislav Sotnikov">
 <meta name="apple-mobile-web-app-title" content="Stanislav Sotnikov"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stansotn.github.io/embedded_environment/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stansotn.github.io/embedded_environment/" /><link rel="next" href="https://stansotn.github.io/embedded_debugging/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -56,6 +56,15 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
             </div>
         </div>
     </div>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ12BLFVSP"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TZ12BLFVSP');
+    </script>
 </header><header class="mobile" id="header-mobile">
     <div class="header-container">
         <div class="header-wrapper">
@@ -70,6 +79,15 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
                 <i class="fas fa-adjust fa-fw"></i>
             </a></div>
     </div>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ12BLFVSP"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TZ12BLFVSP');
+    </script>
 </header>
 <div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
@@ -93,14 +111,14 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
   <ul>
     <li><a href="#1-requirements">1. Requirements</a>
       <ul>
-        <li><a href="#11-gcc-arm-none-eabi">1.1 gcc-arm-none-eabi</a>
+        <li><a href="#11-gcc-arm-none-eabi">1.1. gcc-arm-none-eabi</a>
           <ul>
             <li><a href="#ubuntu">Ubuntu</a></li>
             <li><a href="#macos">MacOS</a></li>
           </ul>
         </li>
-        <li><a href="#12-git">1.2 git</a></li>
-        <li><a href="#13-cmake">1.3 CMake</a>
+        <li><a href="#12-git">1.2. git</a></li>
+        <li><a href="#13-cmake">1.3. CMake</a>
           <ul>
             <li><a href="#ubuntu-1">Ubuntu</a></li>
             <li><a href="#macos-1">MacOS</a></li>
@@ -111,8 +129,8 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
     <li><a href="#2-project-structure">2. Project Structure</a></li>
     <li><a href="#3-libraries">3. Libraries</a>
       <ul>
-        <li><a href="#31-cmsis">3.1 CMSIS</a></li>
-        <li><a href="#32-hal">3.2 HAL</a></li>
+        <li><a href="#31-cmsis">3.1. CMSIS</a></li>
+        <li><a href="#32-hal">3.2. HAL</a></li>
       </ul>
     </li>
     <li><a href="#4-sources">4. Sources</a></li>
@@ -126,7 +144,7 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
 <p>There is a plethora of bare-metal oriented <a href="https://en.wikipedia.org/wiki/Integrated_development_environment" target="_blank" rel="noopener noreffer"><em>Integrated Development Environments</em></a> (IDEs) in the wild sharing a similar set of features. These include Keil, Atollic, IAR, mbed, a multitude of eclipse flavors, and well-known Arduino.</p>
 <p>This post/tutorial shows a method of developing embedded code without having a particular IDE in mind, a bare approach for bare metal development, underlining why IDE agnostic is elegant, efficient and simple.</p>
 <h2 id="1-requirements">1. Requirements</h2>
-<p>This post will focus on embedded ARM toolchain, particularly on the guidelines for the famous <a href="https://hackaday.com/2017/03/30/the-2-32-bit-arduino-with-debugging/" target="_blank" rel="noopener noreffer"><em>Blue Pill</em></a> (aka <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32f103c8.html" target="_blank" rel="noopener noreffer"><em>STM32F103C8T6</em></a>). The process is almost identical for other stm32 microcontrollers and simillar for embeded arm devices from other vendors (Atmel, NXP, etc).</p>
+<p>This post will focus on embedded ARM toolchain, particularly on the guidelines for the famous <a href="https://hackaday.com/2017/03/30/the-2-32-bit-arduino-with-debugging/" target="_blank" rel="noopener noreffer"><em>blue pill</em></a> (aka <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32f103c8.html" target="_blank" rel="noopener noreffer"><em>stm32f103c8t6</em></a>). The process is almost identical for other stm32 microcontrollers and simillar for embeded arm devices from other vendors (Atmel, NXP, etc).</p>
 <p>Further instructions are written for Unix platforms, that is Linux and MacOS.</p>
 <p>Our dependencies are</p>
 <ul>
@@ -134,16 +152,16 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
 <li><a href="https://git-scm.com" target="_blank" rel="noopener noreffer"><em>git</em></a> &ndash; Version Control.</li>
 <li><a href="https://cmake.org" target="_blank" rel="noopener noreffer"><em>CMake</em></a> &ndash; Build System.</li>
 </ul>
-<h3 id="11-gcc-arm-none-eabi">1.1 gcc-arm-none-eabi</h3>
+<h3 id="11-gcc-arm-none-eabi">1.1. gcc-arm-none-eabi</h3>
 <p>Compiler, linker, debugger, objdump, you name it.</p>
 <h4 id="ubuntu">Ubuntu</h4>
 <p>Install using your favorite package manager or download from <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm" target="_blank" rel="noopener noreffer">here</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install gcc-arm-none-eabi
 </code></pre></div><h4 id="macos">MacOS</h4>
 <p>At the moment, if you do <code>brew install gcc-arm-embedded</code> besides installing the toolchain brew will install the entire Keil as a bonus.. ctrl+c and install from the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm" target="_blank" rel="noopener noreffer"><em>arm website</em></a>.</p>
-<h3 id="12-git">1.2 git</h3>
+<h3 id="12-git">1.2. git</h3>
 <p>We will use git as a version control system and to pull some libraries into our project. Odds are you have git installed already, if unsure, try <code>git --version</code>. In case you don&rsquo;t have git, follow installation instructions <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank" rel="noopener noreffer">here</a>.</p>
-<h3 id="13-cmake">1.3 CMake</h3>
+<h3 id="13-cmake">1.3. CMake</h3>
 <p>CMake will serve us as a build system, it will generate tedious <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer"><em>make files</em></a> telling the compiler where to look for the source code and passing flags. CMake is the most widely spread build system, many IDEs rely on it. In fact, you don&rsquo;t have to be familiar with CMake to follow this tutorial.</p>
 <p>Download CMake from <a href="https://cmake.org/download/" target="_blank" rel="noopener noreffer"><em>here</em></a> or install with a package manager.</p>
 <h4 id="ubuntu-1">Ubuntu</h4>
@@ -160,7 +178,7 @@ mkdir libraries
 mkdir cmake
 </code></pre></div><p>This is different from typical unix development, where your 3d party libraries are likely to live in <code>/usr/local</code>. Since we will be writing code for a different architecture we do not &ldquo;install&rdquo; libraries/headers into our system.</p>
 <h2 id="3-libraries">3. Libraries</h2>
-<h3 id="31-cmsis">3.1 CMSIS</h3>
+<h3 id="31-cmsis">3.1. CMSIS</h3>
 <p>First, we are going to add <a href="https://arm-software.github.io/CMSIS_5/Core/html/index.html" target="_blank" rel="noopener noreffer"><em>Cortex Microcontroller Software Interface</em></a> or CMSIS. There are traits all Cortex-M microcontrollers share. CMSIS serves as a standard, developed by ARM itself, to interface things like <em>Nested Vector Interrupt Table</em> (NVIC), Exception Handlers (Reset, Hard Fault, SysTick, Supervisor Call), Memory protection, Floating Point Unit, etc.. <a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic" target="_blank" rel="noopener noreffer"><em>Here</em></a> is a good article about exceptions and NVIC.</p>
 <p><a href="https://github.com/ARM-software/CMSIS_5" target="_blank" rel="noopener noreffer"><em>Here</em></a> is CMSIS github repository. In fact, all we will need in terms of the library support is available on git, therefore we can take use <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="noopener noreffer"><em>git submodule</em></a> to link these repositories to our project.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From the project root.</span>
@@ -173,7 +191,7 @@ git checkout master <span class="c1"># The default branch is develop.</span>
 <p>We will also need the device specific CMSIS. This defines registers of the available peripherals.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From the project root.</span>
 git submodule add https://github.com/STMicroelectronics/cmsis_device_f1.git libraries/cmsis_device_f1
-</code></pre></div><h3 id="32-hal">3.2 HAL</h3>
+</code></pre></div><h3 id="32-hal">3.2. HAL</h3>
 <p>The next step is Hardware Abstraction Layer of the microcontroller peripherals. The blue pill has STM32F103C8T6 microcontroller, which brings us to ST&rsquo;s <a href="https://github.com/STMicroelectronics" target="_blank" rel="noopener noreffer"><em>github page</em></a> where we find <a href="stm32f1xx_hal_driver" rel=""><em>stm32f1xx_hal_driver</em></a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">git submodule add https://github.com/STMicroelectronics/stm32f1xx_hal_driver.git libraries/stm32f1xx_hal_driver
 <span class="nb">cd</span> libraries/stm32f1xx_hal_driver
@@ -329,7 +347,7 @@ make
         <span class="s">COMMENT</span> <span class="s2">&#34;Extracting ${HEX_FILE}\nExtracting ${BIN_FILE}&#34;</span><span class="p">)</span><span class="err">
 </span></code></pre></div><h2 id="afterword">Afterword</h2>
 <p>The final blue-pill template created in this tutorial is available <a href="https://github.com/stansotn/blue-pill" target="_blank" rel="noopener noreffer"><em>here</em></a>.</p>
-<p>A sequel on Embedded Debugging is coming soon.</p>
+<p>A sequel on Embedded Debugging is available <a href="stansotn.com/embedded_debugging" rel=""><em>here</em></a>.</p>
 <blockquote>
 <p><strong>Help Me Improve</strong><br>
 I am learning to write meaningful documentation. I hope you enjoyed this post, please help me back by emailing some feedback!</p>
@@ -363,7 +381,8 @@ I am learning to write meaningful documentation. I hope you enjoyed this post, p
         </section>
     </div>
 
-    <div class="post-nav"></div>
+    <div class="post-nav">
+            <a href="/embedded_debugging/" class="next" rel="next" title="Embedded Debugging">Embedded Debugging<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">

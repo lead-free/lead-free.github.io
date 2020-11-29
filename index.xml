@@ -4,9 +4,17 @@
         <link>https://stansotn.github.io/</link>
         <description>welcome to stan.</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</managingEditor>
-            <webMaster>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</webMaster><lastBuildDate>Sun, 22 Nov 2020 17:00:49 -0500</lastBuildDate>
+            <webMaster>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</webMaster><lastBuildDate>Thu, 26 Nov 2020 17:00:49 -0500</lastBuildDate>
             <atom:link href="https://stansotn.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Embedded Debugging</title>
+    <link>https://stansotn.github.io/embedded_debugging/</link>
+    <pubDate>Thu, 26 Nov 2020 17:00:49 -0500</pubDate>
+    <author>Author</author>
+    <guid>https://stansotn.github.io/embedded_debugging/</guid>
+    <description><![CDATA[Continuing the saga on embedded development, this post goes over common ways to debug bare metal ARM, illustrating the technique on blue pill (aka stm32f103c8t6) and most common debugger probes.
+The debugger itself is a physical piece of hardware that lives inside the processor and can take control of the cpu and memories. When it comes to ARM, there are two protocols available to interface the on chip debugger &ndash; JTAG and Serial Wire Debug or swd (more about the differences here).]]></description>
+</item><item>
     <title>Embedded Environment</title>
     <link>https://stansotn.github.io/embedded_environment/</link>
     <pubDate>Sun, 22 Nov 2020 17:00:49 -0500</pubDate>

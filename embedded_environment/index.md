@@ -10,7 +10,7 @@ There is a plethora of bare-metal oriented [*Integrated Development Environments
 This post/tutorial shows a method of developing embedded code without having a particular IDE in mind, a bare approach for bare metal development, underlining why IDE agnostic is elegant, efficient and simple.
 
 ## 1. Requirements
-This post will focus on embedded ARM toolchain, particularly on the guidelines for the famous [*Blue Pill*](https://hackaday.com/2017/03/30/the-2-32-bit-arduino-with-debugging/) (aka [*STM32F103C8T6*](https://www.st.com/en/microcontrollers-microprocessors/stm32f103c8.html)). The process is almost identical for other stm32 microcontrollers and simillar for embeded arm devices from other vendors (Atmel, NXP, etc).
+This post will focus on embedded ARM toolchain, particularly on the guidelines for the famous [*blue pill*](https://hackaday.com/2017/03/30/the-2-32-bit-arduino-with-debugging/) (aka [*stm32f103c8t6*](https://www.st.com/en/microcontrollers-microprocessors/stm32f103c8.html)). The process is almost identical for other stm32 microcontrollers and simillar for embeded arm devices from other vendors (Atmel, NXP, etc).
 
 Further instructions are written for Unix platforms, that is Linux and MacOS.
 
@@ -19,7 +19,7 @@ Our dependencies are
  - [*git*](https://git-scm.com) -- Version Control.
  - [*CMake*](https://cmake.org) -- Build System.
 
-### 1.1 gcc-arm-none-eabi
+### 1.1. gcc-arm-none-eabi
 Compiler, linker, debugger, objdump, you name it.
 
 #### Ubuntu  
@@ -30,10 +30,10 @@ sudo apt install gcc-arm-none-eabi
 #### MacOS  
 At the moment, if you do `brew install gcc-arm-embedded` besides installing the toolchain brew will install the entire Keil as a bonus.. ctrl+c and install from the [*arm website*](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm).  
 
-### 1.2 git
+### 1.2. git
 We will use git as a version control system and to pull some libraries into our project. Odds are you have git installed already, if unsure, try `git --version`. In case you don't have git, follow installation instructions [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
 
-### 1.3 CMake
+### 1.3. CMake
 CMake will serve us as a build system, it will generate tedious [*make files*](https://www.gnu.org/software/make/manual/make.html) telling the compiler where to look for the source code and passing flags. CMake is the most widely spread build system, many IDEs rely on it. In fact, you don't have to be familiar with CMake to follow this tutorial.
 
 Download CMake from [*here*](https://cmake.org/download/) or install with a package manager.
@@ -68,7 +68,7 @@ This is different from typical unix development, where your 3d party libraries a
 
 ## 3. Libraries
 
-### 3.1 CMSIS
+### 3.1. CMSIS
 
 First, we are going to add [*Cortex Microcontroller Software Interface*](https://arm-software.github.io/CMSIS_5/Core/html/index.html) or CMSIS. There are traits all Cortex-M microcontrollers share. CMSIS serves as a standard, developed by ARM itself, to interface things like *Nested Vector Interrupt Table* (NVIC), Exception Handlers (Reset, Hard Fault, SysTick, Supervisor Call), Memory protection, Floating Point Unit, etc.. [*Here*](https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic) is a good article about exceptions and NVIC.
 
@@ -92,7 +92,7 @@ We will also need the device specific CMSIS. This defines registers of the avail
 git submodule add https://github.com/STMicroelectronics/cmsis_device_f1.git libraries/cmsis_device_f1
 ```
 
-### 3.2 HAL
+### 3.2. HAL
 
 The next step is Hardware Abstraction Layer of the microcontroller peripherals. The blue pill has STM32F103C8T6 microcontroller, which brings us to ST's [*github page*](https://github.com/STMicroelectronics) where we find [*stm32f1xx_hal_driver*](stm32f1xx_hal_driver).
 
@@ -293,7 +293,7 @@ add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
 
 The final blue-pill template created in this tutorial is available [*here*](https://github.com/stansotn/blue-pill).
 
-A sequel on Embedded Debugging is coming soon.
+A sequel on Embedded Debugging is available [*here*](stansotn.com/embedded_debugging).
 
 > **Help Me Improve**  
 > I am learning to write meaningful documentation. I hope you enjoyed this post, please help me back by emailing some feedback!

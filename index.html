@@ -11,7 +11,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://stansotn.github.io/" />
 <meta property="og:image" content="https://stansotn.github.io/logo.png"/>
-<meta property="og:updated_time" content="2020-11-22T17:00:49-05:00" />
+<meta property="og:updated_time" content="2020-11-26T17:00:49-05:00" />
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://stansotn.github.io/logo.png"/>
 
@@ -45,6 +45,15 @@
             </div>
         </div>
     </div>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ12BLFVSP"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TZ12BLFVSP');
+    </script>
 </header><header class="mobile" id="header-mobile">
     <div class="header-container">
         <div class="header-wrapper">
@@ -59,6 +68,15 @@
                 <i class="fas fa-adjust fa-fw"></i>
             </a></div>
     </div>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ12BLFVSP"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TZ12BLFVSP');
+    </script>
 </header>
 <div class="search-dropdown desktop">
     <div id="search-dropdown-desktop"></div>
@@ -76,6 +94,11 @@
         alt="images/me/avatar_grey.jpg"
         title="images/me/avatar_grey.jpg" /></a></div><h2 class="home-subtitle">Hello.</h2><div class="links"><a href="https://github.com/stansotn" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="https://www.flickr.com/photos/sl-vision" title="Flickr" target="_blank" rel="noopener noreffer me"><i class="fab fa-flickr fa-fw"></i></a><a href="https://open.spotify.com/user/3cs4skvjc6a3neql3o0mtqpnb?si=jZNOT5JuQVSe2Ew0ehQQpA" title="Spotify" target="_blank" rel="noopener noreffer me"><i class="fab fa-spotify fa-fw"></i></a><a href="mailto:ssotnikov@ccny.cuny.edu" title="Email" rel=" me"><i class="far fa-envelope fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/embedded_debugging/">Embedded Debugging</a>
+    </h1><div class="post-meta">&nbsp;<span class="post-publish">published on <time datetime="2020-11-26">2020-11-26</time></span></div><div class="content">Continuing the saga on embedded development, this post goes over common ways to debug bare metal ARM, illustrating the technique on blue pill (aka stm32f103c8t6) and most common debugger probes.
+The debugger itself is a physical piece of hardware that lives inside the processor and can take control of the cpu and memories. When it comes to ARM, there are two protocols available to interface the on chip debugger &ndash; JTAG and Serial Wire Debug or swd (more about the differences here).</div><div class="post-footer">
+        <a href="/embedded_debugging/">Read More</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/embedded_environment/">Embedded Environment</a>
     </h1><div class="post-meta">&nbsp;<span class="post-publish">published on <time datetime="2020-11-22">2020-11-22</time></span></div><div class="content">Have you ever wondered what is going on behind the mystical IDE of your embedded choice?
 Many programming journeys start with learning user interface of a particular Development Environment &ndash; a path I took myself. While IDEs can arguably simplify things, various knobs get defaulted to some magic values. Unless you know upfront, it can be tricky to lookup what these radio buttons actually do.
