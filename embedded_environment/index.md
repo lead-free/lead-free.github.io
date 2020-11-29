@@ -293,9 +293,9 @@ add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
 
 The final blue-pill template created in this tutorial is available [*here*](https://github.com/stansotn/blue-pill).
 
-A sequel on Embedded Debugging is available [*here*](stansotn.com/embedded_debugging).
+A sequel on Embedded Debugging is available [*here*](https://stansotn.com/embedded_debugging/).
 
 > **Help Me Improve**  
 > I am learning to write meaningful documentation. I hope you enjoyed this post, please help me back by emailing some feedback!
-> - Is information here clear, correct and up to date?
+> - Is information clear, correct and up to date?
 > - How would you improve this post?

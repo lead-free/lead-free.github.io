@@ -348,6 +348,6 @@ Many, if not all IDEs use gdb behind their visual interface. Now you can configu
 
 > **Help Me Improve**  
 > I am learning to write meaningful documentation. I hope you enjoyed this post, please help me back by emailing some feedback!
-> - Is information here clear, correct and up to date?
+> - Is information clear, correct and up to date?
 > - How would you improve this post?
 
