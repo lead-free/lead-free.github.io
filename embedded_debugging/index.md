@@ -346,6 +346,8 @@ Many, if not all IDEs use gdb behind their visual interface. Now you can configu
 
 ## Afterword
 
+In case your favorite openocd repository is missing the latest stm configurations, you can check [*st's openocd fork*](https://github.com/STMicroelectronics/OpenOCD) (configs are in `tcl/` folder).
+
 > **Help Me Improve**  
 > I am learning to write meaningful documentation. I hope you enjoyed this post, please help me back by emailing some feedback!
 > - Is information clear, correct and up to date?
