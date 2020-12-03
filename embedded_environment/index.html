@@ -33,7 +33,7 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/stansotn.github.io\/embedded_environment\/"
-        },"genre": "posts","wordcount":  2058 ,
+        },"genre": "posts","wordcount":  1941 ,
         "url": "https:\/\/stansotn.github.io\/embedded_environment\/","datePublished": "2020-11-22T17:00:49-05:00","dateModified": "2020-11-22T17:00:49-05:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -101,7 +101,7 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title">Embedded Environment</h1><div class="post-meta">
             <div class="post-meta-line"></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-22">2020-11-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;2058 words&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-22">2020-11-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1941 words&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -153,13 +153,12 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
 <li><a href="https://cmake.org" target="_blank" rel="noopener noreffer"><em>CMake</em></a> &ndash; Build System.</li>
 </ul>
 <h3 id="11-gcc-arm-none-eabi">1.1. gcc-arm-none-eabi</h3>
-<p>Compiler, linker, debugger, objdump, you name it.</p>
+<p>Compiler, linker, debugger, objdump, you name it. Install using a package manager or from the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm" target="_blank" rel="noopener noreffer"><em>arm website</em></a>.</p>
 <h4 id="ubuntu">Ubuntu</h4>
-<p>Install using your favorite package manager or download from <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm" target="_blank" rel="noopener noreffer">here</a>.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install gcc-arm-none-eabi
 </code></pre></div><h4 id="macos">MacOS</h4>
-<p>At the moment, if you do <code>brew install gcc-arm-embedded</code> besides installing the toolchain brew will install the entire Keil as a bonus.. ctrl+c and install from the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm" target="_blank" rel="noopener noreffer"><em>arm website</em></a>.</p>
-<h3 id="12-git">1.2. git</h3>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">brew install --cask gcc-arm-embedded
+</code></pre></div><h3 id="12-git">1.2. git</h3>
 <p>We will use git as a version control system and to pull some libraries into our project. Odds are you have git installed already, if unsure, try <code>git --version</code>. In case you don&rsquo;t have git, follow installation instructions <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank" rel="noopener noreffer">here</a>.</p>
 <h3 id="13-cmake">1.3. CMake</h3>
 <p>CMake will serve us as a build system, it will generate tedious <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer"><em>make files</em></a> telling the compiler where to look for the source code and passing flags. CMake is the most widely spread build system, many IDEs rely on it. In fact, you don&rsquo;t have to be familiar with CMake to follow this tutorial.</p>
@@ -250,18 +249,25 @@ git submodule add https://github.com/nicocvn/yaccs.git cmake/yaccs
 </span><span class="err"></span><span class="c"># This is required with modern version of CMake.
 </span><span class="c"></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.10</span><span class="p">)</span><span class="err">
 </span><span class="err">
+</span><span class="err"></span><span class="c"># Define the project.
+</span><span class="c"></span><span class="nb">project</span><span class="p">(</span><span class="s">blue-pill</span> <span class="s">ASM</span> <span class="s">C</span> <span class="s">CXX</span><span class="p">)</span><span class="err">
+</span><span class="err"></span><span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># Linker Script
+</span><span class="c"></span><span class="nb">set</span><span class="p">(</span><span class="s">LINKER_SCRIPT</span> <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/libraries/cmsis_device_f1/Source/Templates/gcc/linker/STM32F101XB_FLASH.ld</span><span class="p">)</span><span class="err">
+</span><span class="err"></span><span class="nb">set_target_properties</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> 
+                        <span class="s">PROPERTIES</span> 
+                        <span class="s">SUFFIX</span> <span class="s2">&#34;.elf&#34;</span>
+                        <span class="s">LINK_OPTIONS</span> <span class="s2">&#34;-Wl,-gc-sections,--print-memory-usage,-Map=${PROJECT_NAME}.map,-T${LINKER_SCRIPT}&#34;</span><span class="p">)</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># HAL libraries require to define target microcontroller.
+</span><span class="c"># See stm32f1xx.h for more details.
+</span><span class="c"></span><span class="nb">target_compile_definitions</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PUBLIC</span> <span class="s">-DSTM32F103xB</span> <span class="s">-DUSE_HAL_DRIVER</span><span class="p">)</span><span class="err">
+</span><span class="err">
 </span><span class="err"></span><span class="c"># Include yaccs main CMake file.
 </span><span class="c"># This will automatically look and load the user-config file.
 </span><span class="c"># This has to be done before calling the project() command!
 </span><span class="c"></span><span class="nb">include</span><span class="p">(</span><span class="s">cmake/yaccs/yaccs.cmake</span><span class="p">)</span><span class="err">
-</span><span class="err">
-</span><span class="err"></span><span class="c"># Define the project.
-</span><span class="c"></span><span class="nb">project</span><span class="p">(</span><span class="s">blue-pill</span> <span class="s">ASM</span> <span class="s">C</span> <span class="s">CXX</span><span class="p">)</span><span class="err">
-</span><span class="err"></span><span class="nb">add_executable</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span><span class="p">)</span><span class="err">
-</span><span class="err">
-</span><span class="err"></span><span class="c"># HAL libraries require to define terget microcontroller.
-</span><span class="c"># See stm32f1xx.h for more details.
-</span><span class="c"></span><span class="nb">add_definitions</span><span class="p">(</span><span class="s">-DSTM32F103xB</span> <span class="s">-DUSE_HAL_DRIVER</span><span class="p">)</span><span class="err">
 </span><span class="err">
 </span><span class="err"></span><span class="c"># This is optional but useful to get a sense of what is happening.
 </span><span class="c"># This command will print various information about the build configuration.
@@ -283,31 +289,39 @@ git submodule add https://github.com/nicocvn/yaccs.git cmake/yaccs
 </span><span class="c"></span><span class="nb">include</span><span class="p">(</span><span class="s">cmake/yaccs/cortex-m_gcc-arm_m3_cxx14.cmake</span><span class="p">)</span><span class="err">
 </span></code></pre></div><p>Tell cmake which sources to compile. With <code>add_subdirectory</code> statements, cmake looks for <code>CMakeLists.txt</code> in the specified directory, therefore we need to create one for <code>sources</code> and <code>libraries</code>.</p>
 <p>Create <code>sources/CMakeLists.txt</code> containing the following.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: sources/CMakeLists.txt
-</span><span class="c"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> <span class="s">inc/</span><span class="p">)</span><span class="err">
+<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: sources/CMakelists.txt
+</span><span class="c"></span><span class="err">
+</span><span class="err"></span><span class="c"># Add inc/
+</span><span class="c"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PUBLIC</span> <span class="s">inc/</span><span class="p">)</span><span class="err">
 </span><span class="err">
-</span><span class="err"></span><span class="c"># This will add all files in src, use with care
-</span><span class="c"></span><span class="nb">file</span><span class="p">(</span><span class="s">GLOB</span> <span class="s">SOURCES</span> <span class="s">src/*.*</span><span class="p">)</span><span class="err">
-</span><span class="err"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> <span class="o">${</span><span class="nv">SOURCES</span><span class="o">}</span><span class="p">)</span><span class="err">
-</span></code></pre></div><p>Create <code>libraries/CMakeLists.txt</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file libraries/CMakeLists.txt
+</span><span class="err"></span><span class="c"># Add src/
+</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PUBLIC</span> 
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/main.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/stm32f1xx_it.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/usb_device.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/usbd_cdc_if.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/usbd_conf.c</span>
+                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/usbd_desc.c</span><span class="p">)</span><span class="err">
+</span></code></pre></div><p>As you may notice we skipped <code>syscalls.c</code> generated by stmcube, this is because we are using a smaller version of the standard library, more on this <a href="https://electronics.stackexchange.com/questions/459975/role-of-syscalls-c" target="_blank" rel="noopener noreffer"><em>here</em></a></p>
+<p>Create <code>libraries/CMakeLists.txt</code>.</p>
+<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file libraries/CMakelists.txt
 </span><span class="c"></span><span class="err">
 </span><span class="err"></span><span class="c"># List header locations. 
-</span><span class="c"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span>
+</span><span class="c"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PUBLIC</span>
                             <span class="s">CMSIS_5/CMSIS/Core/Include</span>
                             <span class="s">cmsis_device_f1/Include</span>
                             <span class="s">stm32f1xx_hal_driver/Inc</span>
                             <span class="s">stm32_mw_usb_device/Core/Inc</span>
                             <span class="s">stm32_mw_usb_device/Class/CDC/Inc</span><span class="p">)</span><span class="err">
 </span><span class="err">
-</span><span class="err"></span><span class="c"># Collect startup code. For some reason there is no exact file that matches startup_stm32f103x8.s, very confusing, ST!
+</span><span class="err"></span><span class="c"># Add startup code. For some reason there is no exact file that matches startup_stm32f103x8.s, very confusing, ST!
 </span><span class="c"># A glimpse at the stm cube&#39;s generated code reveals startup_stm32f103xb.s file.
-</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> 
+</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PUBLIC</span> 
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmsis_device_f1/Source/Templates/system_stm32f1xx.c</span>
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/cmsis_device_f1/Source/Templates/gcc/startup_stm32f103xb.s</span><span class="p">)</span><span class="err">
 </span><span class="err">
 </span><span class="err"></span><span class="c"># Collect HAL Driver source files.
-</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> 
+</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PUBLIC</span> 
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal.c</span>
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_cortex.c</span>
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_gpio.c</span>
@@ -315,22 +329,16 @@ git submodule add https://github.com/nicocvn/yaccs.git cmake/yaccs
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_rcc_ex.c</span>
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_pcd.c</span>
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_pcd_ex.c</span>
-                <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_hal_pwr.c</span>
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32f1xx_hal_driver/Src/stm32f1xx_ll_usb.c</span><span class="p">)</span><span class="err">
 </span><span class="err">
 </span><span class="err"></span><span class="c"># Collect USB CDC Driver.
-</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> 
+</span><span class="c"></span><span class="nb">target_sources</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PUBLIC</span> 
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32_mw_usb_device/Core/Src/usbd_ioreq.c</span>
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32_mw_usb_device/Core/Src/usbd_ctlreq.c</span>
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32_mw_usb_device/Core/Src/usbd_core.c</span>
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/stm32_mw_usb_device/Class/CDC/Src/usbd_cdc.c</span><span class="p">)</span><span class="err">
 </span></code></pre></div><h2 id="6-build">6. Build</h2>
 <p>We are almost there. In case stm fixed <a href="https://github.com/STMicroelectronics/STM32CubeF1/issues/25" target="_blank" rel="noopener noreffer"><em>this</em></a> usb related bug, everything should compile. Make sure in function declarations <a href="https://github.com/stansotn/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L533" target="_blank" rel="noopener noreffer"><em>USBD_LL_Transmit</em></a> and <a href="https://github.com/stansotn/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L553" target="_blank" rel="noopener noreffer"><em>USBD_LL_PrepareReceive</em></a> the last function argument is <code>uint32_t size</code> and not <code>uint16_t size</code>.</p>
-<p>Now everything should compile, though generated <code>.elf</code> file might not be properly aligned with the microcontroller memory. You could convert the <code>.elf</code> file to one or multiple binary blobs and then flash these blobs knowing the corresponding memory offsets. While such method would indeed make the processor execute your code, it would also make the <code>.elf</code> file unusable for debugging. In short, <code>.elf</code> contains symbols relating underlying binary, source code, and memory space. You can explicitly describe memory space to the linker using a <em>linker script</em>.</p>
-<p>Grab a default linker script provided by stm. Append the <code>CMakeLists.txt</code> in the project root with the following lines.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="nb">set</span><span class="p">(</span><span class="s">LINKER_SCRIPT</span> <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/libraries/cmsis_device_f1/Source/Templates/gcc/linker/STM32F101XB_FLASH.ld</span><span class="p">)</span><span class="err">
-</span><span class="err"></span><span class="nb">target_link_options</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.elf</span> <span class="s">PUBLIC</span> <span class="s2">&#34;-Wl,-gc-sections,--print-memory-usage,-T${LINKER_SCRIPT}&#34;</span><span class="p">)</span><span class="err">
-</span></code></pre></div><p>As a bonus, now linker prints memory usage and makes sure your firmware does not go over the limits.</p>
 <p>Finally comes the time to build the project.</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir build
 <span class="nb">cd</span> build
