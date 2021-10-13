@@ -9,10 +9,10 @@
 <meta property="og:description" content="Continuing the saga on embedded development, this post goes over common ways to debug bare metal ARM, illustrating the technique on blue pill (aka stm32f103c8t6) and most common debugger probes.
 The debugger itself is a physical piece of hardware that lives inside the processor and can take control of the cpu and memories. When it comes to ARM, there are two protocols available to interface the on chip debugger &ndash; JTAG and Serial Wire Debug or swd (more about the differences here)." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://stansotn.github.io/embedded_debugging/" />
-<meta property="og:image" content="https://stansotn.github.io/logo.png"/>
+<meta property="og:url" content="https://stansotn.github.io/embedded_debugging/" /><meta property="og:image" content="https://stansotn.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-11-26T17:00:49-05:00" />
 <meta property="article:modified_time" content="2020-11-26T17:00:49-05:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://stansotn.github.io/logo.png"/>
 
@@ -157,7 +157,7 @@ The debugger itself is a physical piece of hardware that lives inside the proces
 <p>Pick your probe and see what are the options of getting a gdbserver running.</p>
 <h3 id="21-openocd--raspberry-pi">2.1. openocd + Raspberry Pi</h3>
 <p>Openocd must be built from source to enable swd over spi capability on any raspberry pi. A glance at history; openocd capabilities to make use of the raspberry pi&rsquo;s spi port were developed in <a href="https://github.com/lupyuen/openocd-spi" target="_blank" rel="noopener noreffer"><em>this</em></a> fork, which to the day of writing this post had not been merged into the <a href="https://github.com/ntfreak/openocd" target="_blank" rel="noopener noreffer"><em>original opencod repo</em></a>. The author of the spi tweak published <a href="https://medium.com/@ly.lee/openocd-on-raspberry-pi-better-with-swd-on-spi-7dea9caeb590" target="_blank" rel="noopener noreffer"><em>this</em></a> article on how to get the hack working with Rust and nrf52, beware this only works on a 32 bit raspbian. With appearance of 64 bit Ubuntu for raspberry pi, a <a href="https://github.com/lupyuen/openocd-spi/pull/2" target="_blank" rel="noopener noreffer"><em>pull request</em></a> added aarch64 support. The latter is the particular version of openocd that I tested on raspberry pi, it works both on aarch32 raspbian and aarch64 ubuntu.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install autoconf libtool libusb-1.0-0 libusb-1.0-0-dev
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt install autoconf libtool libusb-1.0-0 libusb-1.0-0-dev
 git clone --recursive https://github.com/jeliebig/openocd-spi
 <span class="nb">cd</span> openocd-spi
 ./bootstrap
@@ -165,9 +165,9 @@ git clone --recursive https://github.com/jeliebig/openocd-spi
 make
 </code></pre></div><p>Feel free to grab some coffee, the build process can take a while. Upon success you will find an openocd binary in the <code>src/</code> folder.</p>
 <p>Raspbery pi&rsquo;s spi is disabled by default. Enable spi by writing <code>dtparam=spi=on</code> to <code>/boot/config.txt</code> in Raspbian or <code>/boot/firmware/usercfg.txt</code> in Ubuntu. Reboot. Then, enable read write access to spi port.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo chmod <span class="m">606</span> /dev/spidev0.0
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo chmod <span class="m">606</span> /dev/spidev0.0
 </code></pre></div><p>Create an openocd configuration file.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># file: swd-pi.ocd
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># file: swd-pi.ocd
 # OpenOCD script for using Raspberry Pi as SWD Programmer for stm32f1x
 
 # Select the Broadcom SPI interface for Raspberry Pi (SWD transport)
@@ -206,26 +206,26 @@ bindto 0.0.0.0
 </table>
 <p>Power up the blue pill. Despite being very convenient, I would not recommend powering the pill from pi&rsquo;s 3.3V line as if you short something on the pill, raspberry will die. If you supply the power through micro usb or 5V line you will likely to kill the pill&rsquo;s linear voltage regulator in case something gets shorted.</p>
 <p>Run openocd. Argument <code>-s ../tcl/</code> is a path to the <code>tlc</code> folder where openocd looks for configuration files; argument <code>-f swd-pi.ocd</code> points to the session specific configuration we just created.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From openocd-spi/src</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From openocd-spi/src</span>
 ./openocd -s ~/projects/openocd-spi/tcl/ -f swd-pi.ocd
 </code></pre></div><p>Upon success you shall see an output containing</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Info : BCM2835 SPI SWD driver
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Info : BCM2835 SPI SWD driver
 Info : SWD only mode enabled
 Info : clock speed 31200 kHz
 Info : SWD DPIDR 0x1ba01477
 Info : stm32f1x.cpu: hardware has 6 breakpoints, 4 watchpoints
 Info : Listening on port 3333 for gdb connections
 </code></pre></div><p>In case you see</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Info : SWD DPIDR 0x0000ffff
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Info : SWD DPIDR 0x0000ffff
 </code></pre></div><p>openocd failed to connect to the microcontroller, check connection.</p>
 <p>In case you see the following being endlessly printed</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">spi_transmit failed: Bad file descriptor
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">spi_transmit failed: Bad file descriptor
 </code></pre></div><p>Then either spi is disabled or openocd does not have permissions to <code>/dev/spidev0.0</code>. Odds are you can&rsquo;t ctrl+c yourself out of the error, then you need to find and kill the process from a different window.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">pgrep openocd <span class="c1"># Lookup process id.</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">pgrep openocd <span class="c1"># Lookup process id.</span>
 <span class="nb">kill</span> -9 &lt;process id&gt; <span class="c1"># Kill openocd process.</span>
 </code></pre></div><h3 id="22-openocd--stlink">2.2. openocd + stlink</h3>
 <p>Getting stlink to cooperate is pretty much about getting openocd to work on your system one way or the other. Let&rsquo;s start with a configuration file for stlink and stm32fxx as it will be the same for any host.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback"># file: stlink-swd.ocd
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># file: stlink-swd.ocd
 
 # Select stlink probe
 source [find interface/stlink.cfg]
@@ -243,7 +243,7 @@ bindto 0.0.0.0
 <p>Follow the openocd installation guide for the raspberry pi above, you may skip the spi details if you are not using a raspberry pi or you don&rsquo;t want swd over spi support. Then start openocd with the configuration file for stlink.</p>
 <h4 id="222-ubuntu">2.2.2. Ubuntu</h4>
 <p>Ubuntu is the most straightforward with building openocd.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install autoconf libtool libusb-1.0-0 libusb-1.0-0-dev <span class="c1"># Dependencies.</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt install autoconf libtool libusb-1.0-0 libusb-1.0-0-dev <span class="c1"># Dependencies.</span>
 git clone --recursive https://github.com/ntfreak/openocd.git <span class="c1"># Original openocd repo.</span>
 <span class="nb">cd</span> openocd
 ./bootstrap
@@ -251,17 +251,17 @@ git clone --recursive https://github.com/ntfreak/openocd.git <span class="c1"># 
 make -j4
 </code></pre></div><p>Upon success you will find an openocd binary in the <code>src/</code> folder.</p>
 <p>Grab the configuration script <code>stlink-swd.ocd</code> presented above, connect your target to stlink and stlink to the host computer.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo ./openocd -s ../tcl -f stlink-swd.ocd
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo ./openocd -s ../tcl -f stlink-swd.ocd
 </code></pre></div><p>Argument <code>-s ../tcl</code> is a path to the <code>tlc</code> folder where openocd looks for configuration files; argument <code>-f stlink-swd.ocd</code> points to the session specific configuration we just created.</p>
 <p>Upon success you shall see a similar output:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Info : clock speed 1000 kHz
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Info : clock speed 1000 kHz
 Info : STLINK V3J7M2 (API v3)
 Info : Target voltage: 3.3
 ...
 Info : Listening on port 3333 for gdb connections
 </code></pre></div><h4 id="223-macos">2.2.3. MacOS</h4>
 <p>Unfortunately, openocd throws compilation errors on MacOS that I did not have motivation to resolve. The older version is available to install through <code>brew install openocd</code>, but it would not work with the newer stlink-v3. You are encouraged to troubleshoot the build and inform me on your findings.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">brew install autoconf libtool libusb
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">brew install autoconf libtool libusb
 git clone --recursive https://github.com/ntfreak/openocd.git <span class="c1"># Original openocd repo.</span>
 <span class="nb">cd</span> openocd
 ./bootstrap
@@ -278,7 +278,7 @@ make -j4
 <li>STLinkUpgrade.jar</li>
 </ul>
 <p>Copy your findings to a separate folder. The gdbserver executable looks for its <code>libSTLinkUSBDriver</code> library in a certain subfolder. Make sure your files are organized as in the following example for macos.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">.
 ├── ST-LINK_gdbserver
 ├── STLinkUpgrade.jar
 ├── STM32_Programmer_CLI
@@ -286,11 +286,11 @@ make -j4
     └── mac_x64
         └── libSTLinkUSBDriver.dylib # .so on linux
 </code></pre></div><p>Otherwise you will get the following error.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">dyld: Library not loaded: @rpath/libSTLinkUSBDriver.dylib
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">dyld: Library not loaded: @rpath/libSTLinkUSBDriver.dylib
 </code></pre></div><p>Connect the hardware. Now you can run the gdbserver as</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">./ST-LINK_gdbserver -e -d -cp .
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">./ST-LINK_gdbserver -e -d -cp .
 </code></pre></div><p>Uppon success you shall see</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">ST-LINK device initialization OK
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ST-LINK device initialization OK
 Waiting for debugger connection...
 Waiting for connection on port 61234...
 </code></pre></div><p>Here <code>-cp .</code> is the path to <code>STM32_Programmer_CLI</code>, <code>-d</code> is for swd. If you look closer into the content of the STMCubeIDE package, you will find a <code>config.txt</code> in the folder with <code>ST-LINK_gdbserver</code>, which goes over all command line arguments the gdbserver can take. Once running, you might experience complaints about libusb, which can be installed with <code>brew install libusb</code> and outdated stlink firmware version, which cab be updated by running <code>STLinkUpgrade.jar</code> (has a gui).</p>
@@ -298,45 +298,45 @@ Waiting for connection on port 61234...
 <h3 id="23-jlink">2.3. jlink</h3>
 <p>Jlink comes with all software ready to go, get it from <a href="https://www.segger.com/products/debug-probes/j-link/tools/j-link-gdb-server/about-j-link-gdb-server/" target="_blank" rel="noopener noreffer"><em>here</em></a>.</p>
 <p>Look for <code>JLinkGUIServerExe</code> (warning gui), or <code>JLinkGDBServerCLExe</code> (command line). To avoid the gui prompts you need to provide enough arguments, described <a href="https://wiki.segger.com/J-Link_GDB_Server" target="_blank" rel="noopener noreffer"><em>here</em></a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">JLinkGDBServerCLExe -if swd -device stm32f103c8
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">JLinkGDBServerCLExe -if swd -device stm32f103c8
 </code></pre></div><p>Warning: jlink edu is painful to run on a remote server as it requires you to confirm the license agreement in a gui prompt at least once a day. In case you need to work with a remote jlink edu, use openocd instead.</p>
 <h2 id="3-gdb">3. gdb</h2>
 <p>The GNU Debugger or <a href="https://www.gnu.org/software/gdb/" target="_blank" rel="noopener noreffer"><em>gdb</em></a> is a standard tool for debugging <del>and hacking</del> software in various languages written for various architectures; gdb allows tracing program execution by setting breakpoints, watching memories and processor states.</p>
 <p>The example presented in this tutorial is just a tiny glimpse of what gdb is capable of. You can debugg along with <a href="https://github.com/stansotn/blue-pill" target="_blank" rel="noopener noreffer"><em>this</em></a> empty initialization code for blue pill.</p>
 <p>Start with loading the firmware containing debug symbols. Most flavors of linux including Ubuntu have gdb installed by default.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">gdb blue-pill.elf
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">gdb blue-pill.elf
 </code></pre></div><p>In case you are on macos, the default system debugger is lldb. I use <code>arm-none-eabi-gdb</code> from the embedded arm toolchain package available <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads" target="_blank" rel="noopener noreffer"><em>here</em></a>.</p>
 <p>Running gdb will welcome you into the debugger console, your command line output should be looking similar to the following.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Reading symbols from blue-pill.elf...
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Reading symbols from blue-pill.elf...
 (gdb)
 </code></pre></div><p>Next, make sure your gdbserver (openocd or jlink) is running and listening for connections. If you are familiar with gdb, you may know that you can attach to a process running on the same machine. Since in bare metal scenario, the program being debugged is running on a physically different machine and and likely a different architecture, the gdb connection will always be &ldquo;remote&rdquo; even if the gdbserver is running on the same computer.</p>
 <p>The following command establishes connection with the gdbserver. Make sure your ip address and port matches the configuration. In case gdbserver is running on the same computer, you can put <code>localhost</code> instead of the ip address. The port depends on the gdbserver you are running, <code>3333</code> is default for openocd.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) target extended-remote 192.168.1.24:3333
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) target extended-remote 192.168.1.24:3333
 </code></pre></div><p>Issuing <code>load</code> will flash the firmware!</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) load
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) load
 </code></pre></div><p>Loading firmware does not reset the mcu, that is the program counter has not been set to the reset handler address. Issue a reset and halt.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) monitor reset halt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) monitor reset halt
 </code></pre></div><p><code>monitor &lt;expression&gt;</code> command sends the expression to gdbserver, gdb (client) itself does not know what <code>reset halt</code> does.</p>
 <p><code>step</code> will progress the program counter to the next location.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) step
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) step
 </code></pre></div><p>Look, we are exiting reset handler! Your output should be similar to the following.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Reset_Handler ()
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Reset_Handler ()
     at /some_path/startup_stm32f103xb.s:66
 </code></pre></div><p>Also, see how gdb knows <code>Reset_Handler()</code> is declared in startup_stm32f103xb.s line 66.</p>
 <p>Let&rsquo;s set a breakpoint at the main function.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) break main
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) break main
 </code></pre></div><p>Referencing functions by name in gdb will only work with &ldquo;global&rdquo; functions. Let&rsquo;s set a breakpoint in the infinite loop by referring to the corresponding line in file <code>main.c</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">break main.c:96
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">break main.c:96
 </code></pre></div><p>To list all breakpoints type <code>info break</code>.<br>
 Continue program execution.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) continue
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">(gdb) continue
 </code></pre></div><p>This should take us to Breakpoint 1.</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">Breakpoint 1, main () at /some_path/blue-pill/sources/src/main.c:74
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Breakpoint 1, main () at /some_path/blue-pill/sources/src/main.c:74
 </code></pre></div><p><code>list</code> will display the proceeding lines of code following our current position. Here you could play with <code>step</code> and <code>next</code>, <code>step</code> will take you to the next program counter location, <code>next</code> &ndash; to the next function call. If you are familiar with debugging in any IDE, <code>step</code> is equivalent of &ldquo;step in&rdquo;, and <code>next</code> is &ldquo;step out&rdquo;. <code>continue</code> to get to our second breakpoint. You can delete all breakpoints by issuing <code>delete</code> or delete a specific breakpoint <code>delete 1</code>, or you can also disable breakpoints with <code>disable</code>. If there is no active breakpoints, issuing <code>continue</code> will continue executions until you manually stop it with ctrl+c &ndash; this halts execution of the debugee and does not exit gdb. There is so much to go on about gdb, we haven&rsquo;t started with watchpoints, processor states and memory.</p>
 <p>Also, there is a python api that can help automate testing <del>and hacking</del> with gdb!</p>
 <h3 id="31-gdb--gui">3.1. gdb + gui</h3>
 <p>Many, if not all IDEs use gdb behind their visual interface. Now you can configure embedded debugging support in your favorite text editor. For instance if you use vscode, add a configuration file <code>.vscode/launch.json</code> in the project root. Make sure you have <code>ms-vscode.cpptools</code> extension. Here is my vscode debug configuration.</p>
-<div class="highlight"><pre class="chroma"><code class="language-json" data-lang="json"><span class="err">//</span> <span class="err">file:</span> <span class="err">.vscode/launch.json</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">//</span> <span class="err">file:</span> <span class="err">.vscode/launch.json</span>
 <span class="p">{</span> 
     <span class="err">//</span> <span class="err">For</span> <span class="err">more</span> <span class="err">information,</span> <span class="err">visit:</span> <span class="err">https://go.microsoft.com/fwlink/?linkid=830387</span>
     <span class="nt">&#34;configurations&#34;</span><span class="p">:</span> <span class="p">[</span>
@@ -411,7 +411,7 @@ I am learning to write meaningful documentation. I hope you enjoyed this post, p
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Stanislav Sotnikov</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Stanislav Sotnikov</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

@@ -23,5 +23,14 @@ The debugger itself is a physical piece of hardware that lives inside the proces
     <description><![CDATA[Have you ever wondered what is going on behind the mystical IDE of your embedded choice?
 Many programming journeys start with learning user interface of a particular Development Environment &ndash; a path I took myself. While IDEs can arguably simplify things, various knobs get defaulted to some magic values. Unless you know upfront, it can be tricky to lookup what these radio buttons actually do.
 There is a plethora of bare-metal oriented Integrated Development Environments (IDEs) in the wild sharing a similar set of features.]]></description>
+</item><item>
+    <title>Your Very Own Remote Linux Box</title>
+    <link>https://stansotn.github.io/linux_box/</link>
+    <pubDate>Sun, 22 Nov 2020 17:00:49 -0500</pubDate>
+    <author>Author</author>
+    <guid>https://stansotn.github.io/linux_box/</guid>
+    <description><![CDATA[Every time I installed a fresh linux box, I would find myself looking up the same series of commands over and over to make the newly spawned machine distinct and securely accessible on the network.
+Then I7600 IoT Design Lab at CCNY incentivized me to write this tutorial for academic credit.
+1. Requirements The instructions below are typeset as I am handling ubuntu 20.04 64bit server installation on a raspberry pi, though this tutorial should work with other devices and linux flavors.]]></description>
 </item></channel>
 </rss>

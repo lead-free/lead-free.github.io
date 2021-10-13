@@ -10,10 +10,10 @@
 Many programming journeys start with learning user interface of a particular Development Environment &ndash; a path I took myself. While IDEs can arguably simplify things, various knobs get defaulted to some magic values. Unless you know upfront, it can be tricky to lookup what these radio buttons actually do.
 There is a plethora of bare-metal oriented Integrated Development Environments (IDEs) in the wild sharing a similar set of features." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://stansotn.github.io/embedded_environment/" />
-<meta property="og:image" content="https://stansotn.github.io/logo.png"/>
+<meta property="og:url" content="https://stansotn.github.io/embedded_environment/" /><meta property="og:image" content="https://stansotn.github.io/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-11-22T17:00:49-05:00" />
 <meta property="article:modified_time" content="2020-11-22T17:00:49-05:00" />
+
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://stansotn.github.io/logo.png"/>
 
@@ -24,7 +24,7 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
 <meta name="application-name" content="Stanislav Sotnikov">
 <meta name="apple-mobile-web-app-title" content="Stanislav Sotnikov"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stansotn.github.io/embedded_environment/" /><link rel="next" href="https://stansotn.github.io/embedded_debugging/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stansotn.github.io/embedded_environment/" /><link rel="prev" href="https://stansotn.github.io/linux_box/" /><link rel="next" href="https://stansotn.github.io/embedded_debugging/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -155,24 +155,24 @@ There is a plethora of bare-metal oriented Integrated Development Environments (
 <h3 id="11-gcc-arm-none-eabi">1.1. gcc-arm-none-eabi</h3>
 <p>Compiler, linker, debugger, objdump, you name it. Install using a package manager or from the <a href="https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm" target="_blank" rel="noopener noreffer"><em>arm website</em></a>.</p>
 <h4 id="ubuntu">Ubuntu</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install gcc-arm-none-eabi
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt install gcc-arm-none-eabi
 </code></pre></div><h4 id="macos">MacOS</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">brew install --cask gcc-arm-embedded
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">brew install --cask gcc-arm-embedded
 </code></pre></div><h3 id="12-git">1.2. git</h3>
 <p>We will use git as a version control system and to pull some libraries into our project. Odds are you have git installed already, if unsure, try <code>git --version</code>. In case you don&rsquo;t have git, follow installation instructions <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank" rel="noopener noreffer">here</a>.</p>
 <h3 id="13-cmake">1.3. CMake</h3>
 <p>CMake will serve us as a build system, it will generate tedious <a href="https://www.gnu.org/software/make/manual/make.html" target="_blank" rel="noopener noreffer"><em>make files</em></a> telling the compiler where to look for the source code and passing flags. CMake is the most widely spread build system, many IDEs rely on it. In fact, you don&rsquo;t have to be familiar with CMake to follow this tutorial.</p>
 <p>Download CMake from <a href="https://cmake.org/download/" target="_blank" rel="noopener noreffer"><em>here</em></a> or install with a package manager.</p>
 <h4 id="ubuntu-1">Ubuntu</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sudo apt install cmake
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt install cmake
 </code></pre></div><h4 id="macos-1">MacOS</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">brew install cmake
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">brew install cmake
 </code></pre></div><h2 id="2-project-structure">2. Project Structure</h2>
 <p>It all begins with creating a project directory, which will further be referenced as <em>project root directory</em>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir blue-pill
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir blue-pill
 <span class="nb">cd</span> blue-pill
 </code></pre></div><p>Similarly to any software project, ours will have some code we write ourselves and some borrowed library code that will not change, except for when the libraries get updated. cmake directory will contain our build system.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir sources
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir sources
 mkdir libraries
 mkdir cmake
 </code></pre></div><p>This is different from typical unix development, where your 3d party libraries are likely to live in <code>/usr/local</code>. Since we will be writing code for a different architecture we do not &ldquo;install&rdquo; libraries/headers into our system.</p>
@@ -180,7 +180,7 @@ mkdir cmake
 <h3 id="31-cmsis">3.1. CMSIS</h3>
 <p>First, we are going to add <a href="https://arm-software.github.io/CMSIS_5/Core/html/index.html" target="_blank" rel="noopener noreffer"><em>Cortex Microcontroller Software Interface</em></a> or CMSIS. There are traits all Cortex-M microcontrollers share. CMSIS serves as a standard, developed by ARM itself, to interface things like <em>Nested Vector Interrupt Table</em> (NVIC), Exception Handlers (Reset, Hard Fault, SysTick, Supervisor Call), Memory protection, Floating Point Unit, etc.. <a href="https://interrupt.memfault.com/blog/arm-cortex-m-exceptions-and-nvic" target="_blank" rel="noopener noreffer"><em>Here</em></a> is a good article about exceptions and NVIC.</p>
 <p><a href="https://github.com/ARM-software/CMSIS_5" target="_blank" rel="noopener noreffer"><em>Here</em></a> is CMSIS github repository. In fact, all we will need in terms of the library support is available on git, therefore we can take use <a href="https://git-scm.com/book/en/v2/Git-Tools-Submodules" target="_blank" rel="noopener noreffer"><em>git submodule</em></a> to link these repositories to our project.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From the project root.</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From the project root.</span>
 git init
 git submodule add https://github.com/ARM-software/CMSIS_5 libraries/CMSIS_5
 <span class="nb">cd</span> libraries/CMSIS_5
@@ -188,14 +188,14 @@ git checkout master <span class="c1"># The default branch is develop.</span>
 <span class="nb">cd</span> ../.. <span class="c1"># Back to the project root.</span>
 </code></pre></div><p>Though cloning the entire CMSIS repo might be bulky, we only need a few headers. Imagine somebody else wants to build your project, fishing for headers can be extremely unpleasant. Another solution &ndash; some IDEs copy everything (cmsis and hal) into the project directory by default, which makes version control ugly, and does not allow to easily update libraries.</p>
 <p>We will also need the device specific CMSIS. This defines registers of the available peripherals.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From the project root.</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From the project root.</span>
 git submodule add https://github.com/STMicroelectronics/cmsis_device_f1.git libraries/cmsis_device_f1
 </code></pre></div><h3 id="32-hal">3.2. HAL</h3>
 <p>The next step is Hardware Abstraction Layer of the microcontroller peripherals. The blue pill has STM32F103C8T6 microcontroller, which brings us to ST&rsquo;s <a href="https://github.com/STMicroelectronics" target="_blank" rel="noopener noreffer"><em>github page</em></a> where we find <a href="stm32f1xx_hal_driver" rel=""><em>stm32f1xx_hal_driver</em></a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">git submodule add https://github.com/STMicroelectronics/stm32f1xx_hal_driver.git libraries/stm32f1xx_hal_driver
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">git submodule add https://github.com/STMicroelectronics/stm32f1xx_hal_driver.git libraries/stm32f1xx_hal_driver
 <span class="nb">cd</span> libraries/stm32f1xx_hal_driver
 </code></pre></div><p>Let&rsquo;s be adventurous and screw a virtual com port to our project, because why not? The pill has usb support.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">git submodule add https://github.com/STMicroelectronics/stm32_mw_usb_device.git libraries/stm32_mw_usb_device
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">git submodule add https://github.com/STMicroelectronics/stm32_mw_usb_device.git libraries/stm32_mw_usb_device
 <span class="nb">cd</span> libraries/stm32_mw_usb_device
 </code></pre></div><p><a href="https://en.wikipedia.org/wiki/Virtual_COM_port" target="_blank" rel="noopener noreffer"><em>Virtual Com Port</em></a> can be accessed from your computer the same way a generic serial port would, eliminating the need of usb to TTL converter, that is when you plug in your blue pill into a unix computer you can talk through <code>/dev/tty.something</code>.</p>
 <h2 id="4-sources">4. Sources</h2>
@@ -230,7 +230,7 @@ Play with different knobs, if you do something wrong cube will let you know. For
 </ol>
 <p>A side note on stm cube. The &ldquo;firmware packages&rdquo; that stm cube downloads to generate code contain lots of examples of peripherals initialization and usage. You can find these &ldquo;firmware packages&rdquo; at <code>~/STM32Cube/Repository/</code> or at <a href="https://github.com/STMicroelectronics" target="_blank" rel="noopener noreffer"><em>ST&rsquo;s github</em></a>. <a href="https://github.com/STMicroelectronics/STM32CubeF1" target="_blank" rel="noopener noreffer"><em>Here</em></a> is one for STM32F1xx family.</p>
 <p>Navigate to the folder where stm cube generated initialization code and copy <code>Inc</code> and <code>Src</code> folders to our <code>sources</code> directory.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># Beware of your paths.</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># Beware of your paths.</span>
 cp -r Inc ~/projects/blue-pill/sources/inc
 cp -r Src ~/projects/blue-pill/sources/src
 <span class="c1"># ps: I prefer lower case inc and src</span>
@@ -238,13 +238,13 @@ cp -r Src ~/projects/blue-pill/sources/src
 <h2 id="5-cmake">5. CMake</h2>
 <p>At this point we have summoned all sources in one place and are up to building a binary. Though we are building a hello world there is already a lot going on. The moment you supply power, processor exits reset state by setting the program counter to the predefined reset handler address &ndash; and here your code begins, or not quite yours, for this tutorial we will use startup code provided by st, but you are in full control.</p>
 <p>Back to cmake. Even though, cmake is much more human readable than make, we still have to deal with lots of tedious flags, which vary based on the microcontroller family. For instance, once I used to hardcode compiler flags into a line looking similar to this.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># Not mentioning FPU flags..
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># Not mentioning FPU flags..
 </span><span class="c"></span><span class="nb">set</span><span class="p">(</span><span class="s">COMMON_FLAGS</span> <span class="s2">&#34;-mcpu=cortex-m3 ${FPU_FLAGS} -mthumb -mthumb-interwork -ffunction-sections -fdata-sections -g -fno-common -fmessage-length=0 -specs=nosys.specs -specs=nano.specs -Os&#34;</span><span class="p">)</span><span class="err">
 </span></code></pre></div><p>Let&rsquo;s say one day you would like to switch to another microcontroller, now you have to update your build configuration, which as you see can be a bit tedious. Here I would like to introduce &ldquo;yet another collection of cmake scripts&rdquo; or <a href="https://github.com/nicocvn/yaccs" target="_blank" rel="noopener noreffer"><em>yaccs</em></a>, as inferred from its name yaccs contains some common build configurations and it supports embedded arm.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From project root.</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># From project root.</span>
 git submodule add https://github.com/nicocvn/yaccs.git cmake/yaccs
 </code></pre></div><p>Create a <code>CMakeLists.txt</code> in the project root with the following content. Credit goes to <a href="https://github.com/nicocvn/yaccs/blob/master/docs/Example.md" target="_blank" rel="noopener noreffer"><em>yaccs readme example</em></a>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: CMakeLists.txt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: CMakeLists.txt
 </span><span class="c"></span><span class="err">
 </span><span class="err"></span><span class="c"># This is required with modern version of CMake.
 </span><span class="c"></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span> <span class="s">3.10</span><span class="p">)</span><span class="err">
@@ -280,7 +280,7 @@ git submodule add https://github.com/nicocvn/yaccs.git cmake/yaccs
 </span><span class="c"></span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">sources/</span><span class="p">)</span><span class="err">
 </span><span class="err"></span><span class="nb">add_subdirectory</span><span class="p">(</span><span class="s">libraries/</span><span class="p">)</span><span class="err">
 </span></code></pre></div><p>Create <code>yaccs-user-config.cmake</code> in the project root, this will tell yaccs compiler location and which configuration to use.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: yaccs-user-config.cmake
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: yaccs-user-config.cmake
 </span><span class="c"></span><span class="err">
 </span><span class="err"></span><span class="c"># If the compiler is not in the PATH we need to tell yaccs where to find it.
 </span><span class="c"></span><span class="nb">set</span><span class="p">(</span><span class="s">yaccs_compiler_paths</span> <span class="s">/Applications/ARM/bin/</span><span class="p">)</span><span class="err">
@@ -289,7 +289,7 @@ git submodule add https://github.com/nicocvn/yaccs.git cmake/yaccs
 </span><span class="c"></span><span class="nb">include</span><span class="p">(</span><span class="s">cmake/yaccs/cortex-m_gcc-arm_m3_cxx14.cmake</span><span class="p">)</span><span class="err">
 </span></code></pre></div><p>Tell cmake which sources to compile. With <code>add_subdirectory</code> statements, cmake looks for <code>CMakeLists.txt</code> in the specified directory, therefore we need to create one for <code>sources</code> and <code>libraries</code>.</p>
 <p>Create <code>sources/CMakeLists.txt</code> containing the following.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: sources/CMakelists.txt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file: sources/CMakelists.txt
 </span><span class="c"></span><span class="err">
 </span><span class="err"></span><span class="c"># Add inc/
 </span><span class="c"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PUBLIC</span> <span class="s">inc/</span><span class="p">)</span><span class="err">
@@ -304,7 +304,7 @@ git submodule add https://github.com/nicocvn/yaccs.git cmake/yaccs
                 <span class="o">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="o">}</span><span class="s">/src/usbd_desc.c</span><span class="p">)</span><span class="err">
 </span></code></pre></div><p>As you may notice we skipped <code>syscalls.c</code> generated by stmcube, this is because we are using a smaller version of the standard library, more on this <a href="https://electronics.stackexchange.com/questions/459975/role-of-syscalls-c" target="_blank" rel="noopener noreffer"><em>here</em></a></p>
 <p>Create <code>libraries/CMakeLists.txt</code>.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file libraries/CMakelists.txt
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># file libraries/CMakelists.txt
 </span><span class="c"></span><span class="err">
 </span><span class="err"></span><span class="c"># List header locations. 
 </span><span class="c"></span><span class="nb">target_include_directories</span><span class="p">(</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span> <span class="s">PUBLIC</span>
@@ -340,12 +340,12 @@ git submodule add https://github.com/nicocvn/yaccs.git cmake/yaccs
 </span></code></pre></div><h2 id="6-build">6. Build</h2>
 <p>We are almost there. In case stm fixed <a href="https://github.com/STMicroelectronics/STM32CubeF1/issues/25" target="_blank" rel="noopener noreffer"><em>this</em></a> usb related bug, everything should compile. Make sure in function declarations <a href="https://github.com/stansotn/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L533" target="_blank" rel="noopener noreffer"><em>USBD_LL_Transmit</em></a> and <a href="https://github.com/stansotn/blue-pill/blob/f37e6c5b6e390598f519f3b96e0d3aedd05a06a3/sources/src/usbd_conf.c#L553" target="_blank" rel="noopener noreffer"><em>USBD_LL_PrepareReceive</em></a> the last function argument is <code>uint32_t size</code> and not <code>uint16_t size</code>.</p>
 <p>Finally comes the time to build the project.</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">mkdir build
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">mkdir build
 <span class="nb">cd</span> build
 cmake ..
 make
 </code></pre></div><p>If you need to extract a binary blob (<code>.bin</code> or <code>.hex</code>), add following the <code>CMakeLists.txt</code> in the project root.</p>
-<div class="highlight"><pre class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># Extract binary blob
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cmake" data-lang="cmake"><span class="c"># Extract binary blob
 </span><span class="c"></span><span class="nb">set</span><span class="p">(</span><span class="s">HEX_FILE</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.hex</span><span class="p">)</span><span class="err">
 </span><span class="err"></span><span class="nb">set</span><span class="p">(</span><span class="s">BIN_FILE</span> <span class="o">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="o">}</span><span class="s">/</span><span class="o">${</span><span class="nv">PROJECT_NAME</span><span class="o">}</span><span class="s">.bin</span><span class="p">)</span><span class="err">
 </span><span class="err">
@@ -389,12 +389,12 @@ I am learning to write meaningful documentation. I hope you enjoyed this post, p
         </section>
     </div>
 
-    <div class="post-nav">
+    <div class="post-nav"><a href="/linux_box/" class="prev" rel="prev" title="Your Very Own Remote Linux Box"><i class="fas fa-angle-left fa-fw"></i>Your Very Own Remote Linux Box</a>
             <a href="/embedded_debugging/" class="next" rel="next" title="Embedded Debugging">Embedded Debugging<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Stanislav Sotnikov</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Stanislav Sotnikov</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
         </div>
     </footer></div>
 

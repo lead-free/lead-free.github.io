@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Your Very Own Remote Linux Box - Stanislav Sotnikov</title><meta name="Description" content="welcome to stan."><meta property="og:title" content="Your Very Own Remote Linux Box" />
+<meta property="og:description" content="Every time I installed a fresh linux box, I would find myself looking up the same series of commands over and over to make the newly spawned machine distinct and securely accessible on the network.
+Then I7600 IoT Design Lab at CCNY incentivized me to write this tutorial for academic credit.
+1. Requirements The instructions below are typeset as I am handling ubuntu 20.04 64bit server installation on a raspberry pi, though this tutorial should work with other devices and linux flavors." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://stansotn.github.io/linux_box/" /><meta property="og:image" content="https://stansotn.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-11-22T17:00:49-05:00" />
+<meta property="article:modified_time" content="2020-11-22T17:00:49-05:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://stansotn.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Your Very Own Remote Linux Box"/>
+<meta name="twitter:description" content="Every time I installed a fresh linux box, I would find myself looking up the same series of commands over and over to make the newly spawned machine distinct and securely accessible on the network.
+Then I7600 IoT Design Lab at CCNY incentivized me to write this tutorial for academic credit.
+1. Requirements The instructions below are typeset as I am handling ubuntu 20.04 64bit server installation on a raspberry pi, though this tutorial should work with other devices and linux flavors."/>
+<meta name="application-name" content="Stanislav Sotnikov">
+<meta name="apple-mobile-web-app-title" content="Stanislav Sotnikov"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stansotn.github.io/linux_box/" /><link rel="next" href="https://stansotn.github.io/embedded_environment/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Your Very Own Remote Linux Box",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/stansotn.github.io\/linux_box\/"
+        },"genre": "posts","wordcount":  945 ,
+        "url": "https:\/\/stansotn.github.io\/linux_box\/","datePublished": "2020-11-22T17:00:49-05:00","dateModified": "2020-11-22T17:00:49-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Stanislav Sotnikov"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Stanislav Sotnikov">Stanislav Sotnikov</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ12BLFVSP"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TZ12BLFVSP');
+    </script>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Stanislav Sotnikov">Stanislav Sotnikov</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ12BLFVSP"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TZ12BLFVSP');
+    </script>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title">Your Very Own Remote Linux Box</h1><div class="post-meta">
+            <div class="post-meta-line"></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-11-22">2020-11-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;945 words&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-requirements">1. Requirements</a></li>
+    <li><a href="#2-first-boot">2. First Boot</a>
+      <ul>
+        <li><a href="#21-you-own-the-network">2.1 You own the network.</a></li>
+        <li><a href="#22-the-network-isnt-yours">2.2 The network isn&rsquo;t yours</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-changing-defaults">3. Changing defaults</a>
+      <ul>
+        <li><a href="#31-change-hostname">3.1 Change hostname</a></li>
+        <li><a href="#32-change-username">3.2 Change username</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-public-key-authentication">4. Public key authentication</a>
+      <ul>
+        <li><a href="#41-secure-the-remote">4.1 Secure the remote</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-tips-and-tricks">5. Tips and tricks</a>
+      <ul>
+        <li><a href="#51-ssh-config">5.1. SSH config</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Every time I installed a fresh linux box, I would find myself looking up the
+same series of commands over and over to make the newly spawned machine
+distinct and securely accessible on the network.</p>
+<p>Then I7600 IoT Design Lab at CCNY incentivized me to write this tutorial
+<del>for academic credit</del>.</p>
+<h2 id="1-requirements">1. Requirements</h2>
+<p>The instructions below are typeset as I am handling ubuntu 20.04 64bit server
+installation on a raspberry pi, though this tutorial should work with other
+devices and linux flavors.</p>
+<p>The only requirement is a freshly installed linux box (further referred as
+<em>remote</em>) that we are about to boot into and a wired connection to a DHCP
+network, so that we can find our box on the network from the computer we are
+about to ssh from (further referred as <em>local</em>). This tutorial leaves the
+process of linux installation up to you.</p>
+<h2 id="2-first-boot">2. First Boot</h2>
+<p>Our device is powered on, let&rsquo;s map it on the network.</p>
+<h3 id="21-you-own-the-network">2.1 You own the network.</h3>
+<p>In case you own the network and have access the router/network switch you can
+look up the ip address of the device on your NAT. Ubuntu device will be called
+<code>ubuntu</code> by default. Keep in mind that the ip address will change when DHCP
+lease time is over, most of the routers have an option to make the ip address
+sticky.</p>
+<h3 id="22-the-network-isnt-yours">2.2 The network isn&rsquo;t yours</h3>
+<p>This might get tricky since you can&rsquo;t simply determine the ip of your newly
+installed ubuntu box. First you have to be sure that the network switch you are
+connecting to is DHCP (the ip address can be obtained automatically), you
+could poke the ethernet port with your laptop to test.</p>
+<p>Now you&rsquo;d like to determine the ip address of your box. You could run a
+network scan with <code>nmap</code> to discover devices on the subnet.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">nmap -sn 192.168.1.0/24  <span class="c1"># if your ip is 192.168.1.x</span>
+</code></pre></div><p>In case <code>nmap</code> resolved hostnames (you&rsquo;re lucky), just look for <code>ubuntu</code> in
+the list. Otherwise, you might have to unplug your device&rsquo;s ethernet and do
+another scan to see which device disappeared/appeared.</p>
+<h2 id="3-changing-defaults">3. Changing defaults</h2>
+<p>Once you have determined the ip, it is time to remotely login via ssh.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh ubuntu@192.168.0.123  <span class="c1"># Relace the ip of your device.</span>
+</code></pre></div><p>You will be prompted to enter the default password (it&rsquo;s ubuntu in case you are
+working with ubuntu).</p>
+<p>Next, we would like to change the device hostname (as it appears on the
+network) and username, which would require log in as a different user. We
+will login as <em>root</em>. Alternatively we could create another user account and
+then delete the default one. In this tutorial I will use the root account.</p>
+<p>Set root password.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo passwd root
+</code></pre></div><p>Open <code>sshd_config</code> and allow login as root by setting <code>PermitRootLogin yes</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo nano /etc/ssh/sshd_config  <span class="c1"># Open sshd_config</span>
+</code></pre></div><p>Restart ssh service.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">service sshd restart
+</code></pre></div><p>Logout.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">exit</span>
+</code></pre></div><h3 id="31-change-hostname">3.1 Change hostname</h3>
+<p>Login as root.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh root@192.168.0.123  <span class="c1"># Relace the ip of your device.</span>
+</code></pre></div><p>Hostname is a string that device uses to self identify on the network, it is
+stored in <code>/etc/hostname</code>. If you read the file you can see the default &ldquo;ubuntu&rdquo;
+in there.</p>
+<p>My device is a raspberry pi 3b, and I shall set hostname accordingly (so I can
+recognize it from the other devices on my local network).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">echo</span> <span class="s2">&#34;raspi3b-alpha&#34;</span> &gt; /etc/hostname
+</code></pre></div><h3 id="32-change-username">3.2 Change username</h3>
+<p>Rename the default ubuntu user.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">usermod -l my_username -d /home/my_username -m ubuntu
+</code></pre></div><p>Reboot.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">reboot
+</code></pre></div><h2 id="4-public-key-authentication">4. Public key authentication</h2>
+<p>If you don&rsquo;t have a key pair associated with your local machine, create one.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> ~/.ssh  <span class="c1"># SSH keys are normally stored in the .ssh directory.</span>
+ssh-keygen -t ed25519
+</code></pre></div><p>You will be prompted to enter the key name and protect it with a password
+(up to you). This will generate <code>your-key.pub</code> and <code>your-key</code>, public and
+private keys accordingly. Public key is the one you will share with remotes,
+private key should stay safe and secret on you local computer.</p>
+<p>Share public key with the remote.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">scp your-key.pub my_username@192.168.0.123:~/.ssh/.  <span class="c1"># Mind the ip.</span>
+</code></pre></div><h3 id="41-secure-the-remote">4.1 Secure the remote</h3>
+<p>Login to the remote.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh my_username@192.168.0.123
+</code></pre></div><p>Authorize <code>your-key.pub</code> to be a login credential on the remote.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">cat ~/.ssh/your-key.pub &gt;&gt; ~/.ssh/authorized_keys
+</code></pre></div><p>Configure ssh by finding and setting the following in the <code>/etc/ssh/sshd_config</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">PermitRootLogin no  # disable root login
+PubkeyAuthentication yes  # enable public key authentication.
+PasswordAuthentication no  # disable password authentication.
+</code></pre></div><p>Hint: press ctrl+w and type something to search.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo nano /etc/ssh/sshd_config  <span class="c1"># open sshd_config with nano</span>
+</code></pre></div><p>Finally, restart ssh to apply the changes.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">service sshd restart
+</code></pre></div><p>Almost forgot, lock the root user.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo passwd -l root
+</code></pre></div><p>Attempt to log in using public key from your local machine. Notice, flag
+<code>-i</code> is pointing to the private key. Attempting to log in without passing the
+public key should now fail.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh my_username@192.168.0.123 -i ~/.ssh/your-key
+</code></pre></div><h2 id="5-tips-and-tricks">5. Tips and tricks</h2>
+<h3 id="51-ssh-config">5.1. SSH config</h3>
+<p>Imagine you would like to manage multiple devices from your local machine.
+Remembering all ip addresses specifying path to the appropriate keys can get
+annoying quickly. You could add the following directive to you local
+<code>~/.ssh/config</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Host raspi3b.local # Name of the entry
+    HostName 192.168.0.123  # This can also be a dns name like `my-domain.com`.
+    User my_username  # Your username goes here.
+    IdentityFile ~/.ssh/your-key # Path to your private key.
+</code></pre></div><p>This way you could just type the following to login.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh raspi3b.local
+</code></pre></div><p>In case you&rsquo;re wondering the <code>.local</code> is just my way of indication that I would
+like to login via the local network. You could set the name to anything.</p>
+<blockquote>
+<p><strong>Help Me Improve</strong><br>
+I am learning to write meaningful documentation. I hope you enjoyed this post, please help me back by emailing some feedback!</p>
+<ul>
+<li>Is information clear, correct and up to date?</li>
+<li>How would you improve this post?</li>
+</ul>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2020-11-22</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/linux_box/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/embedded_environment/" class="next" rel="next" title="Embedded Environment">Embedded Environment<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Stanislav Sotnikov</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
