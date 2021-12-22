@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Reverse SSH over Websocket - Stanislav Sotnikov</title><meta name="Description" content="welcome to stan."><meta property="og:title" content="Reverse SSH over Websocket" />
+<meta property="og:description" content="Sometimes you might find yourself in dark places where ssh is not allowed, and you must find a way to communicate with the outer world with something other than HTTP/HTTPS. Why would they do it in the first place, you might be asking. Sshing into the outer world is 0 steps away from sshing inwards. Meaning if there is a way out, there is always a way in. Reverse ssh duh!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://stansotn.github.io/ssh_websocket_proxy/" /><meta property="og:image" content="https://stansotn.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-10-10T18:00:00-05:00" />
+<meta property="article:modified_time" content="2021-10-10T18:00:00-05:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://stansotn.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Reverse SSH over Websocket"/>
+<meta name="twitter:description" content="Sometimes you might find yourself in dark places where ssh is not allowed, and you must find a way to communicate with the outer world with something other than HTTP/HTTPS. Why would they do it in the first place, you might be asking. Sshing into the outer world is 0 steps away from sshing inwards. Meaning if there is a way out, there is always a way in. Reverse ssh duh!"/>
+<meta name="application-name" content="Stanislav Sotnikov">
+<meta name="apple-mobile-web-app-title" content="Stanislav Sotnikov"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://stansotn.github.io/ssh_websocket_proxy/" /><link rel="prev" href="https://stansotn.github.io/linux_box/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Reverse SSH over Websocket",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/stansotn.github.io\/ssh_websocket_proxy\/"
+        },"genre": "posts","wordcount":  1135 ,
+        "url": "https:\/\/stansotn.github.io\/ssh_websocket_proxy\/","datePublished": "2021-10-10T18:00:00-05:00","dateModified": "2021-10-10T18:00:00-05:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "Stanislav Sotnikov"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Stanislav Sotnikov">Stanislav Sotnikov</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/about/"> About </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ12BLFVSP"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TZ12BLFVSP');
+    </script>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Stanislav Sotnikov">Stanislav Sotnikov</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/about/" title="">About</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TZ12BLFVSP"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-TZ12BLFVSP');
+    </script>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title">Reverse SSH over Websocket</h1><div class="post-meta">
+            <div class="post-meta-line"></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-10-10">2021-10-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1135 words&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-requirements">1. Requirements</a></li>
+    <li><a href="#2-free-server">2. Free Server</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#21-generating-certificate">2.1 Generating Certificate</a></li>
+            <li><a href="#22-persistent-websocat">2.2 Persistent Websocat</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#3-captive-server">3. Captive Server</a></li>
+    <li><a href="#4-afterword">4. Afterword</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Sometimes you might find yourself in dark places where ssh is not allowed, and
+you must find a way to communicate with the outer world with something other
+than HTTP/HTTPS. Why would they do it in the first place, you might be asking.
+Sshing into the outer world is 0 steps away from sshing inwards.
+Meaning if there is a way out, there is always a way in. Reverse ssh duh!</p>
+<p>Once upon a blue moon, my comrades and I were sent to work from home for
+reasons well known, leaving us away from the computational capacities
+<del>and free electricity</del>. Colleagues were divided into two categories,
+the ones who used remote desktop apps, and the ones who used reverse ssh.
+At that point inward ssh was already blocked. We have attempted the civilized
+path as we were pending for the mystical and perhaps non-existing vpn access
+to our organization.</p>
+<p>Their firewalls blocked all remote desktop apps, and then some 6 month later all
+outgoing ssh connections went down as well (so did reverse ssh).
+The curious reader is aware &ndash; regardless of the hardware, service, or
+encoding, connect it to the internet and someone&rsquo;s gonna own it
+(credit to dual core).</p>
+<h2 id="1-requirements">1. Requirements</h2>
+<ol start="0">
+<li>A <em>captive machine</em> we want to set free. Open SSH installed, no root
+permissions required.</li>
+<li>A machine in the demilitarized zone. Must be always up and running.
+Could be at your house or in the cloud. Further, referred as free server.</li>
+<li>Access to both <em>free</em> and <em>captive</em> servers to set things up.</li>
+<li><a href="https://github.com/vi/websocat" target="_blank" rel="noopener noreffer">Websocat</a>. Binaries available for unix-like
+x86 systems. Builds painlessly on ARM (build guide in the repo).</li>
+<li>Open SSH client and server on both <em>free</em> and <em>captive</em> servers.</li>
+<li>Open SSL command line tool on the <em>free server</em>.</li>
+</ol>
+<h2 id="2-free-server">2. Free Server</h2>
+<h4 id="21-generating-certificate">2.1 Generating Certificate</h4>
+<p>First, we have to set up a certificate to encrypt the websocket connection.
+Firewalls I encountered restrict outgoing ssh connections by sniffing the ssh
+version header, which gets transmitted unencrypted at the initial handshake.
+This method won&rsquo;t help you if your websocket communication is plaintext.</p>
+<p>Generate the certificate on the free server.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">openssl req -x509 -newkey rsa:4096 -keyout wss-key.pem -out wss-cert.pem -days <span class="m">365</span> --nodes
+</code></pre></div><p>In case you have openssl ^v3.0, I would recommend using dsa key.
+The command would be.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">openssl req -x509 -newkey dsa -keyout wss-key.pem -out wss-cert.pem -days <span class="m">365</span> --noenc
+</code></pre></div><p>Either command would spit out a private key and a certificate.
+Hint: the second &rsquo;s' stands for <em>secure</em>.</p>
+<p>Bundle the private key and the certificate into an archive to feed to <code>websocat</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">openssl pkcs12 -export -out wss.pkcs12 -inkey wss-key.pem -in wss-cert.pem
+</code></pre></div><h4 id="22-persistent-websocat">2.2 Persistent Websocat</h4>
+<p>Time to set up <code>websocat</code>. We would like to make our <em>free server</em> persistent,
+so that if the machine reboots, the server program comes back online
+automagically. Below is a simple shell script to start a <code>websocat</code> server on
+port 1337 that decrypts and redirects all traffic into <code>localhost:22</code> (aka ssh)
+in binary form. In addition, output of <code>websocat</code> is logged for further
+debugging if needed.</p>
+<p>I will further refer to the following shell script as <code>wss-server.sh</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># Content of `wss-server.sh`</span>
+ 
+<span class="c1"># Path to websocat executable</span>
+<span class="nv">websocat</span><span class="o">=</span>~/websocat
+<span class="c1"># Path to certificate bundle</span>
+<span class="nv">pkcs12</span><span class="o">=</span>~/wss.pkcs12
+<span class="c1"># Log file (optional)</span>
+<span class="nv">log</span><span class="o">=</span>~/websocat.log
+
+<span class="nb">echo</span> <span class="s2">&#34;Websocat server starting on </span><span class="k">$(</span>date<span class="k">)</span><span class="s2">&#34;</span> &gt;&gt; <span class="nv">$log</span>
+<span class="nv">$websocat</span> --binary wss-l:127.0.0.1:1337 tcp:127.0.0.1:22 --pkcs12-der <span class="nv">$pkcs12</span> &gt;&gt; <span class="nv">$log</span> 2&gt;<span class="p">&amp;</span><span class="m">1</span>
+</code></pre></div><p><code>websocat</code> itself is quite reliable &ndash; I&rsquo;ve been running it for months
+without restarting the process, but your <em>free server</em> might not be, as your
+roommate reaches to restart the router because they think it could fix their
+laggy bloated laptop and by accident your raspberry pi gets unplugged.</p>
+<p>It&rsquo;s a good thing raspberry pi boots by itself when the power is back. Let&rsquo;s
+make our websocket server to do the same. This can be achieved by adding
+<code>wss-server.sh</code> to crontab.</p>
+<p>Open crontab file.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">crontab -l
+</code></pre></div><p>Add the following line substituting your path to <code>wss-server.sh</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@reboot ~/.local/bin/wss-server.sh
+</code></pre></div><p>The <code>websocat</code> server will start on boot. It&rsquo;s worth to try running
+<code>wss-server.sh</code> from the command line before restarting.</p>
+<h2 id="3-captive-server">3. Captive Server</h2>
+<p>Here I will skip the steps of generating a keypair for securing your ssh
+connection, you can find a step-by-step guide <a href="https://stansotn.com/linux_box/#4-public-key-authentication" target="_blank" rel="noopener noreffer">here</a>
+(note, this needs to be done for both machines).</p>
+<p>First download the latest release of <code>websocat</code> for your system from <a href="https://github.com/vi/websocat/releases" target="_blank" rel="noopener noreffer">here</a>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">wget url/to/the/download/link
+</code></pre></div><p>Set up ssh proxy. The following to be added into <code>~/.ssh/config</code>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">host ws.freeserver
+    User username
+    ProxyCommand ~/websocat --binary wss://&lt;ip or hostname of free server&gt; --insecure
+    IdentityFile ~/.ssh/captive-private-key
+</code></pre></div><p>The <code>--insecure</code> flag is set here to disable TLS certificate validation with
+trusted certificate authorities. The encryption is used in the websocket layer
+of communication to make it non-trivial for the firewall to filter your packets.
+Rely on ssh encryption for security. If for whatever reason you want to use
+verifiable certificate, you can get one for free from <a href="https://letsencrypt.org" target="_blank" rel="noopener noreffer">let&rsquo;s encrypt</a>.
+Note, then you would have to use appropriate certificate bundle on the
+<em>free server</em>.</p>
+<p>Now you can ssh into the <em>free server</em> from the <em>captive server</em>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh ws.freeserver
+</code></pre></div><p>If you&rsquo;d like to leave a backdoor to be able to access the captive server
+from anywhere on the internet you can use a reverse ssh configuration.</p>
+<p>The following command mounts port 22 of the <em>captive server</em> to port 1338 of
+the <em>free server</em>. A good explanation of what ssh forwarding does can be found
+<a href="https://unix.stackexchange.com/questions/115897/whats-ssh-port-forwarding-and-whats-the-difference-between-ssh-local-and-remot" target="_blank" rel="noopener noreffer">here</a></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">ssh -R 1338:localhost:22 ws.freeserver
+</code></pre></div><p>You can now ssh into the <em>captive server</em> as you would normally ssh into the
+<em>free server</em>, just specify the port.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># Will get you into the *captive server*</span>
+ssh freeserver -p <span class="m">1338</span>
+</code></pre></div><p>To run the above-mentioned command in the background, add <code>-N -f</code> flags.
+SSH connection has a tendency of dropping, use <code>autossh</code> to keep the connection
+alive (you might have to download the widely available executable).
+Add the following to <code>crontab</code> if you&rsquo;d like to start the ssh tunnel on every
+boot.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@reboot autossh -NRf 1338:localhost:22 ws.freeserver
+</code></pre></div><h2 id="4-afterword">4. Afterword</h2>
+<p>Did you know you could use ssh as poor man&rsquo;s vpn, for instance, you can browse
+the internet from anywhere as if you were browsing from the <em>captive server</em>,
+see <a href="https://github.com/sshuttle/sshuttle" target="_blank" rel="noopener noreffer">sshuttle</a>.</p>
+<p>In case your ip is blacklisted by the captive&rsquo;s firewall, you can set up dns
+record and proxy for on cloudflare for free.</p>
+<p>In case you would like <a href="https://nginx.org" target="_blank" rel="noopener noreffer">nginx</a> to proxy connections at the
+<em>free server</em> with uri path resolution, here is an example configuration to
+proxy websocket connections with nginx.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-nginx.conf" data-lang="nginx.conf"><span class="k">server</span> <span class="p">{</span>
+
+       <span class="kn">listen</span> <span class="mi">443</span> <span class="s">ssl</span><span class="p">;</span>
+       <span class="kn">ssl_certificate</span> <span class="s">/path/to/cert.pem</span><span class="p">;</span>
+       <span class="kn">ssl_certificate_key</span> <span class="s">/path/to/key.pem</span><span class="p">;</span>
+
+       <span class="kn">location</span> <span class="s">/</span> <span class="p">{</span>
+               <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+               <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+
+               <span class="kn">proxy_pass</span> <span class="s">https://localhost:1337</span><span class="p">;</span>
+               <span class="kn">proxy_http_version</span> <span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+
+               <span class="kn">proxy_set_header</span> <span class="s">Upgrade</span> <span class="nv">$http_upgrade</span><span class="p">;</span>
+               <span class="kn">proxy_set_header</span> <span class="s">Connection</span> <span class="s">&#34;Upgrade&#34;</span><span class="p">;</span>
+
+               <span class="kn">proxy_read_timeout</span> <span class="mi">1000</span><span class="p">;</span>
+               <span class="kn">proxy_ssl_certificate</span> <span class="s">/path/to/cert.pem</span><span class="p">;</span>
+               <span class="kn">proxy_ssl_certificate_key</span> <span class="s">/path/to/key.pem</span><span class="p">;</span>
+       <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><blockquote>
+<p><strong>Help Me Improve</strong><br>
+I am learning to write meaningful documentation. I hope you enjoyed this post, please help me back by emailing some feedback!</p>
+<ul>
+<li>Is information clear, correct and up to date?</li>
+<li>How would you improve this post?</li>
+</ul>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2021-10-10</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/ssh_websocket_proxy/index.md" target="_blank">Read Markdown</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/linux_box/" class="prev" rel="prev" title="Your Very Own Remote Linux Box"><i class="fas fa-angle-left fa-fw"></i>Your Very Own Remote Linux Box</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2020 - 2021</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Stanislav Sotnikov</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":10},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

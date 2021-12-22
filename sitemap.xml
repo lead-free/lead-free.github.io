@@ -2,9 +2,10 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://stansotn.github.io/posts/</loc><lastmod>2021-10-06T17:00:49-05:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://stansotn.github.io/</loc><lastmod>2021-10-06T17:00:49-05:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
-            <loc>https://stansotn.github.io/linux_box/</loc><lastmod>2021-10-06T17:00:49-05:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://stansotn.github.io/posts/</loc><lastmod>2021-10-10T18:00:00-05:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://stansotn.github.io/ssh_websocket_proxy/</loc><lastmod>2021-10-10T18:00:00-05:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://stansotn.github.io/</loc><lastmod>2021-10-10T18:00:00-05:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://stansotn.github.io/linux_box/</loc><lastmod>2021-10-06T17:00:49-05:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://stansotn.github.io/embedded_debugging/</loc><lastmod>2020-11-26T17:00:49-05:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://stansotn.github.io/embedded_environment/</loc><lastmod>2020-11-22T17:00:49-05:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://stansotn.github.io/about/</loc><priority>0</priority></url><url>

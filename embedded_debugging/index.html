@@ -336,20 +336,20 @@ Continue program execution.</p>
 <p>Also, there is a python api that can help automate testing <del>and hacking</del> with gdb!</p>
 <h3 id="31-gdb--gui">3.1. gdb + gui</h3>
 <p>Many, if not all IDEs use gdb behind their visual interface. Now you can configure embedded debugging support in your favorite text editor. For instance if you use vscode, add a configuration file <code>.vscode/launch.json</code> in the project root. Make sure you have <code>ms-vscode.cpptools</code> extension. Here is my vscode debug configuration.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">//</span> <span class="err">file:</span> <span class="err">.vscode/launch.json</span>
-<span class="p">{</span> 
-    <span class="err">//</span> <span class="err">For</span> <span class="err">more</span> <span class="err">information,</span> <span class="err">visit:</span> <span class="err">https://go.microsoft.com/fwlink/?linkid=830387</span>
-    <span class="nt">&#34;configurations&#34;</span><span class="p">:</span> <span class="p">[</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="c1">// file: .vscode/launch.json
+</span><span class="c1"></span><span class="p">{</span> 
+    <span class="c1">// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+</span><span class="c1"></span>    <span class="nt">&#34;configurations&#34;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
             <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;debug&#34;</span><span class="p">,</span>
             <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;cppdbg&#34;</span><span class="p">,</span>
             <span class="nt">&#34;request&#34;</span><span class="p">:</span> <span class="s2">&#34;launch&#34;</span><span class="p">,</span>
             <span class="nt">&#34;program&#34;</span><span class="p">:</span> <span class="s2">&#34;${workspaceRoot}/build/blue-pill.elf&#34;</span><span class="p">,</span>
             <span class="nt">&#34;miDebuggerPath&#34;</span><span class="p">:</span> <span class="s2">&#34;/Applications/ARM/bin/arm-none-eabi-gdb&#34;</span><span class="p">,</span>
-            <span class="err">//</span> <span class="nt">&#34;debugServerPath&#34;</span> <span class="err">and</span> <span class="s2">&#34;debugServerArgs&#34;</span> <span class="err">are</span> <span class="err">commands</span> <span class="err">to</span> <span class="err">start</span> <span class="err">the</span> <span class="err">gdbserver</span>
-            <span class="err">//</span><span class="s2">&#34;debugServerPath&#34;</span><span class="p">:</span> <span class="s2">&#34;/Applications/SEGGER/JLink_V662/JLinkGDBServerCLExe&#34;</span><span class="p">,</span>
-            <span class="err">//</span><span class="nt">&#34;debugServerArgs&#34;</span><span class="p">:</span> <span class="s2">&#34;-device stm32l412cb -if swd&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;cwd&#34;</span><span class="p">:</span> <span class="s2">&#34;${workspaceRoot}&#34;</span><span class="p">,</span>
+            <span class="c1">// &#34;debugServerPath&#34; and &#34;debugServerArgs&#34; are commands to start the gdbserver
+</span><span class="c1"></span>            <span class="c1">//&#34;debugServerPath&#34;: &#34;/Applications/SEGGER/JLink_V662/JLinkGDBServerCLExe&#34;,
+</span><span class="c1"></span>            <span class="c1">//&#34;debugServerArgs&#34;: &#34;-device stm32l412cb -if swd&#34;,
+</span><span class="c1"></span>            <span class="nt">&#34;cwd&#34;</span><span class="p">:</span> <span class="s2">&#34;${workspaceRoot}&#34;</span><span class="p">,</span>
             <span class="nt">&#34;MIMode&#34;</span><span class="p">:</span> <span class="s2">&#34;gdb&#34;</span><span class="p">,</span>
             <span class="nt">&#34;setupCommands&#34;</span><span class="p">:</span> <span class="p">[</span>
                 <span class="p">{</span>

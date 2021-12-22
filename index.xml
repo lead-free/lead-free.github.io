@@ -4,9 +4,16 @@
         <link>https://stansotn.github.io/</link>
         <description>welcome to stan.</description>
         <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</managingEditor>
-            <webMaster>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</webMaster><lastBuildDate>Wed, 06 Oct 2021 17:00:49 -0500</lastBuildDate>
+            <webMaster>stanislav.sotnikov145@gmail.com (Stanislav Sotnikov)</webMaster><lastBuildDate>Sun, 10 Oct 2021 18:00:00 -0500</lastBuildDate>
             <atom:link href="https://stansotn.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Reverse SSH over Websocket</title>
+    <link>https://stansotn.github.io/ssh_websocket_proxy/</link>
+    <pubDate>Sun, 10 Oct 2021 18:00:00 -0500</pubDate>
+    <author>Author</author>
+    <guid>https://stansotn.github.io/ssh_websocket_proxy/</guid>
+    <description><![CDATA[Sometimes you might find yourself in dark places where ssh is not allowed, and you must find a way to communicate with the outer world with something other than HTTP/HTTPS. Why would they do it in the first place, you might be asking. Sshing into the outer world is 0 steps away from sshing inwards. Meaning if there is a way out, there is always a way in. Reverse ssh duh!]]></description>
+</item><item>
     <title>Your Very Own Remote Linux Box</title>
     <link>https://stansotn.github.io/linux_box/</link>
     <pubDate>Wed, 06 Oct 2021 17:00:49 -0500</pubDate>
